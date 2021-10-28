@@ -1,0 +1,629 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		117799C3272AA72C000C9742 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117799C2272AA72C000C9742 /* AppDelegate.swift */; };
+		117799C5272AA72C000C9742 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117799C4272AA72C000C9742 /* SceneDelegate.swift */; };
+		117799C7272AA72C000C9742 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117799C6272AA72C000C9742 /* ViewController.swift */; };
+		117799CA272AA72C000C9742 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 117799C8272AA72C000C9742 /* Main.storyboard */; };
+		117799CC272AA72F000C9742 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 117799CB272AA72F000C9742 /* Assets.xcassets */; };
+		117799CF272AA72F000C9742 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 117799CD272AA72F000C9742 /* LaunchScreen.storyboard */; };
+		117799DA272AA730000C9742 /* Rappi_WatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117799D9272AA730000C9742 /* Rappi_WatchTests.swift */; };
+		117799E4272AA730000C9742 /* Rappi_WatchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117799E3272AA730000C9742 /* Rappi_WatchUITests.swift */; };
+		117799E6272AA730000C9742 /* Rappi_WatchUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117799E5272AA730000C9742 /* Rappi_WatchUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		117799D6272AA72F000C9742 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 117799B7272AA72C000C9742 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 117799BE272AA72C000C9742;
+			remoteInfo = "Rappi Watch";
+		};
+		117799E0272AA730000C9742 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 117799B7272AA72C000C9742 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 117799BE272AA72C000C9742;
+			remoteInfo = "Rappi Watch";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		117799BF272AA72C000C9742 /* Rappi Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rappi Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		117799C2272AA72C000C9742 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		117799C4272AA72C000C9742 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		117799C6272AA72C000C9742 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		117799C9272AA72C000C9742 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		117799CB272AA72F000C9742 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		117799CE272AA72F000C9742 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		117799D0272AA72F000C9742 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		117799D5272AA72F000C9742 /* Rappi WatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rappi WatchTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		117799D9272AA730000C9742 /* Rappi_WatchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rappi_WatchTests.swift; sourceTree = "<group>"; };
+		117799DF272AA730000C9742 /* Rappi WatchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rappi WatchUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		117799E3272AA730000C9742 /* Rappi_WatchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rappi_WatchUITests.swift; sourceTree = "<group>"; };
+		117799E5272AA730000C9742 /* Rappi_WatchUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rappi_WatchUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		117799BC272AA72C000C9742 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		117799D2272AA72F000C9742 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		117799DC272AA730000C9742 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		117799B6272AA72C000C9742 = {
+			isa = PBXGroup;
+			children = (
+				117799C1272AA72C000C9742 /* Rappi Watch */,
+				117799D8272AA72F000C9742 /* Rappi WatchTests */,
+				117799E2272AA730000C9742 /* Rappi WatchUITests */,
+				117799C0272AA72C000C9742 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		117799C0272AA72C000C9742 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				117799BF272AA72C000C9742 /* Rappi Watch.app */,
+				117799D5272AA72F000C9742 /* Rappi WatchTests.xctest */,
+				117799DF272AA730000C9742 /* Rappi WatchUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		117799C1272AA72C000C9742 /* Rappi Watch */ = {
+			isa = PBXGroup;
+			children = (
+				117799C2272AA72C000C9742 /* AppDelegate.swift */,
+				117799C4272AA72C000C9742 /* SceneDelegate.swift */,
+				117799C6272AA72C000C9742 /* ViewController.swift */,
+				117799C8272AA72C000C9742 /* Main.storyboard */,
+				117799CB272AA72F000C9742 /* Assets.xcassets */,
+				117799CD272AA72F000C9742 /* LaunchScreen.storyboard */,
+				117799D0272AA72F000C9742 /* Info.plist */,
+			);
+			path = "Rappi Watch";
+			sourceTree = "<group>";
+		};
+		117799D8272AA72F000C9742 /* Rappi WatchTests */ = {
+			isa = PBXGroup;
+			children = (
+				117799D9272AA730000C9742 /* Rappi_WatchTests.swift */,
+			);
+			path = "Rappi WatchTests";
+			sourceTree = "<group>";
+		};
+		117799E2272AA730000C9742 /* Rappi WatchUITests */ = {
+			isa = PBXGroup;
+			children = (
+				117799E3272AA730000C9742 /* Rappi_WatchUITests.swift */,
+				117799E5272AA730000C9742 /* Rappi_WatchUITestsLaunchTests.swift */,
+			);
+			path = "Rappi WatchUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		117799BE272AA72C000C9742 /* Rappi Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 117799E9272AA730000C9742 /* Build configuration list for PBXNativeTarget "Rappi Watch" */;
+			buildPhases = (
+				117799BB272AA72C000C9742 /* Sources */,
+				117799BC272AA72C000C9742 /* Frameworks */,
+				117799BD272AA72C000C9742 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Rappi Watch";
+			productName = "Rappi Watch";
+			productReference = 117799BF272AA72C000C9742 /* Rappi Watch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		117799D4272AA72F000C9742 /* Rappi WatchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 117799EC272AA730000C9742 /* Build configuration list for PBXNativeTarget "Rappi WatchTests" */;
+			buildPhases = (
+				117799D1272AA72F000C9742 /* Sources */,
+				117799D2272AA72F000C9742 /* Frameworks */,
+				117799D3272AA72F000C9742 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				117799D7272AA72F000C9742 /* PBXTargetDependency */,
+			);
+			name = "Rappi WatchTests";
+			productName = "Rappi WatchTests";
+			productReference = 117799D5272AA72F000C9742 /* Rappi WatchTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		117799DE272AA730000C9742 /* Rappi WatchUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 117799EF272AA730000C9742 /* Build configuration list for PBXNativeTarget "Rappi WatchUITests" */;
+			buildPhases = (
+				117799DB272AA730000C9742 /* Sources */,
+				117799DC272AA730000C9742 /* Frameworks */,
+				117799DD272AA730000C9742 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				117799E1272AA730000C9742 /* PBXTargetDependency */,
+			);
+			name = "Rappi WatchUITests";
+			productName = "Rappi WatchUITests";
+			productReference = 117799DF272AA730000C9742 /* Rappi WatchUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		117799B7272AA72C000C9742 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1310;
+				LastUpgradeCheck = 1310;
+				TargetAttributes = {
+					117799BE272AA72C000C9742 = {
+						CreatedOnToolsVersion = 13.1;
+					};
+					117799D4272AA72F000C9742 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 117799BE272AA72C000C9742;
+					};
+					117799DE272AA730000C9742 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 117799BE272AA72C000C9742;
+					};
+				};
+			};
+			buildConfigurationList = 117799BA272AA72C000C9742 /* Build configuration list for PBXProject "Rappi Watch" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 117799B6272AA72C000C9742;
+			productRefGroup = 117799C0272AA72C000C9742 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				117799BE272AA72C000C9742 /* Rappi Watch */,
+				117799D4272AA72F000C9742 /* Rappi WatchTests */,
+				117799DE272AA730000C9742 /* Rappi WatchUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		117799BD272AA72C000C9742 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				117799CF272AA72F000C9742 /* LaunchScreen.storyboard in Resources */,
+				117799CC272AA72F000C9742 /* Assets.xcassets in Resources */,
+				117799CA272AA72C000C9742 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		117799D3272AA72F000C9742 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		117799DD272AA730000C9742 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		117799BB272AA72C000C9742 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				117799C7272AA72C000C9742 /* ViewController.swift in Sources */,
+				117799C3272AA72C000C9742 /* AppDelegate.swift in Sources */,
+				117799C5272AA72C000C9742 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		117799D1272AA72F000C9742 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				117799DA272AA730000C9742 /* Rappi_WatchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		117799DB272AA730000C9742 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				117799E4272AA730000C9742 /* Rappi_WatchUITests.swift in Sources */,
+				117799E6272AA730000C9742 /* Rappi_WatchUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		117799D7272AA72F000C9742 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 117799BE272AA72C000C9742 /* Rappi Watch */;
+			targetProxy = 117799D6272AA72F000C9742 /* PBXContainerItemProxy */;
+		};
+		117799E1272AA730000C9742 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 117799BE272AA72C000C9742 /* Rappi Watch */;
+			targetProxy = 117799E0272AA730000C9742 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		117799C8272AA72C000C9742 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				117799C9272AA72C000C9742 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		117799CD272AA72F000C9742 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				117799CE272AA72F000C9742 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		117799E7272AA730000C9742 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		117799E8272AA730000C9742 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		117799EA272AA730000C9742 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZASPB3G349;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Rappi Watch/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fractalteam.Rappi-Watch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		117799EB272AA730000C9742 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZASPB3G349;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Rappi Watch/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fractalteam.Rappi-Watch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		117799ED272AA730000C9742 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZASPB3G349;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fractalteam.Rappi-WatchTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rappi Watch.app/Rappi Watch";
+			};
+			name = Debug;
+		};
+		117799EE272AA730000C9742 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZASPB3G349;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fractalteam.Rappi-WatchTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rappi Watch.app/Rappi Watch";
+			};
+			name = Release;
+		};
+		117799F0272AA730000C9742 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZASPB3G349;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fractalteam.Rappi-WatchUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Rappi Watch";
+			};
+			name = Debug;
+		};
+		117799F1272AA730000C9742 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZASPB3G349;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fractalteam.Rappi-WatchUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Rappi Watch";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		117799BA272AA72C000C9742 /* Build configuration list for PBXProject "Rappi Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				117799E7272AA730000C9742 /* Debug */,
+				117799E8272AA730000C9742 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		117799E9272AA730000C9742 /* Build configuration list for PBXNativeTarget "Rappi Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				117799EA272AA730000C9742 /* Debug */,
+				117799EB272AA730000C9742 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		117799EC272AA730000C9742 /* Build configuration list for PBXNativeTarget "Rappi WatchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				117799ED272AA730000C9742 /* Debug */,
+				117799EE272AA730000C9742 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		117799EF272AA730000C9742 /* Build configuration list for PBXNativeTarget "Rappi WatchUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				117799F0272AA730000C9742 /* Debug */,
+				117799F1272AA730000C9742 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 117799B7272AA72C000C9742 /* Project object */;
+}
