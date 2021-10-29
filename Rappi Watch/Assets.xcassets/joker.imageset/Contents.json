@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "e69eea86-2439-4a06-a342-f2b6bd2af843_alta-libre-aspect-ratio_default_0.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
