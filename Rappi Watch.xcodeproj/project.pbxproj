@@ -48,6 +48,9 @@
 		11DACA34272AC7D800AABAB8 /* MovieDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DACA33272AC7D800AABAB8 /* MovieDetailsView.swift */; };
 		11DACA36272AC83900AABAB8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DACA35272AC83900AABAB8 /* HomeView.swift */; };
 		11DACA38272AC94B00AABAB8 /* MovieCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11DACA37272AC94B00AABAB8 /* MovieCard.swift */; };
+		206CA2A683844174B5BC9DA8 /* Pods_Rappi_Watch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBE5B2ADEEF5D59BC39B4324 /* Pods_Rappi_Watch.framework */; };
+		872A0202FDC46CBF81D6CFD7 /* Pods_Rappi_WatchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3CCFB32DD5DD127471051EC /* Pods_Rappi_WatchTests.framework */; };
+		DA206A59FB772A041A566CB9 /* Pods_Rappi_Watch_Rappi_WatchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCAEB03A240F3EF1AA75B95 /* Pods_Rappi_Watch_Rappi_WatchUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +116,15 @@
 		11DACA33272AC7D800AABAB8 /* MovieDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsView.swift; sourceTree = "<group>"; };
 		11DACA35272AC83900AABAB8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		11DACA37272AC94B00AABAB8 /* MovieCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCard.swift; sourceTree = "<group>"; };
+		1C250A596132BC04C6DA4E53 /* Pods-Rappi Watch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rappi Watch.debug.xcconfig"; path = "Target Support Files/Pods-Rappi Watch/Pods-Rappi Watch.debug.xcconfig"; sourceTree = "<group>"; };
+		616977B042804615FA7E0140 /* Pods-Rappi WatchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rappi WatchTests.release.xcconfig"; path = "Target Support Files/Pods-Rappi WatchTests/Pods-Rappi WatchTests.release.xcconfig"; sourceTree = "<group>"; };
+		7E1F61A3DF8CE3195736DD89 /* Pods-Rappi Watch-Rappi WatchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rappi Watch-Rappi WatchUITests.debug.xcconfig"; path = "Target Support Files/Pods-Rappi Watch-Rappi WatchUITests/Pods-Rappi Watch-Rappi WatchUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8D7EF6434871CE72C653B903 /* Pods-Rappi Watch-Rappi WatchUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rappi Watch-Rappi WatchUITests.release.xcconfig"; path = "Target Support Files/Pods-Rappi Watch-Rappi WatchUITests/Pods-Rappi Watch-Rappi WatchUITests.release.xcconfig"; sourceTree = "<group>"; };
+		A85FB13A751C061E67236722 /* Pods-Rappi Watch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rappi Watch.release.xcconfig"; path = "Target Support Files/Pods-Rappi Watch/Pods-Rappi Watch.release.xcconfig"; sourceTree = "<group>"; };
+		C38D29BF8E7EC4F8A1008FAD /* Pods-Rappi WatchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rappi WatchTests.debug.xcconfig"; path = "Target Support Files/Pods-Rappi WatchTests/Pods-Rappi WatchTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E3CCFB32DD5DD127471051EC /* Pods_Rappi_WatchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rappi_WatchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBE5B2ADEEF5D59BC39B4324 /* Pods_Rappi_Watch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rappi_Watch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECCAEB03A240F3EF1AA75B95 /* Pods_Rappi_Watch_Rappi_WatchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rappi_Watch_Rappi_WatchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				206CA2A683844174B5BC9DA8 /* Pods_Rappi_Watch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				872A0202FDC46CBF81D6CFD7 /* Pods_Rappi_WatchTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA206A59FB772A041A566CB9 /* Pods_Rappi_Watch_Rappi_WatchUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +178,8 @@
 				117799D8272AA72F000C9742 /* Rappi WatchTests */,
 				117799E2272AA730000C9742 /* Rappi WatchUITests */,
 				117799C0272AA72C000C9742 /* Products */,
+				91682EB566728B0FDA98278B /* Pods */,
+				D7329DFD6CC3B6C975BC24CA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -519,6 +536,30 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		91682EB566728B0FDA98278B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1C250A596132BC04C6DA4E53 /* Pods-Rappi Watch.debug.xcconfig */,
+				A85FB13A751C061E67236722 /* Pods-Rappi Watch.release.xcconfig */,
+				7E1F61A3DF8CE3195736DD89 /* Pods-Rappi Watch-Rappi WatchUITests.debug.xcconfig */,
+				8D7EF6434871CE72C653B903 /* Pods-Rappi Watch-Rappi WatchUITests.release.xcconfig */,
+				C38D29BF8E7EC4F8A1008FAD /* Pods-Rappi WatchTests.debug.xcconfig */,
+				616977B042804615FA7E0140 /* Pods-Rappi WatchTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D7329DFD6CC3B6C975BC24CA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EBE5B2ADEEF5D59BC39B4324 /* Pods_Rappi_Watch.framework */,
+				ECCAEB03A240F3EF1AA75B95 /* Pods_Rappi_Watch_Rappi_WatchUITests.framework */,
+				E3CCFB32DD5DD127471051EC /* Pods_Rappi_WatchTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -526,9 +567,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 117799E9272AA730000C9742 /* Build configuration list for PBXNativeTarget "Rappi Watch" */;
 			buildPhases = (
+				965C36C42ACD43B63D962324 /* [CP] Check Pods Manifest.lock */,
 				117799BB272AA72C000C9742 /* Sources */,
 				117799BC272AA72C000C9742 /* Frameworks */,
 				117799BD272AA72C000C9742 /* Resources */,
+				A5C6483BC798DA21EE9A9168 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -543,6 +586,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 117799EC272AA730000C9742 /* Build configuration list for PBXNativeTarget "Rappi WatchTests" */;
 			buildPhases = (
+				3C418EBBF82857D07AE0302A /* [CP] Check Pods Manifest.lock */,
 				117799D1272AA72F000C9742 /* Sources */,
 				117799D2272AA72F000C9742 /* Frameworks */,
 				117799D3272AA72F000C9742 /* Resources */,
@@ -561,9 +605,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 117799EF272AA730000C9742 /* Build configuration list for PBXNativeTarget "Rappi WatchUITests" */;
 			buildPhases = (
+				11CCC6E1C00691533096ECC0 /* [CP] Check Pods Manifest.lock */,
 				117799DB272AA730000C9742 /* Sources */,
 				117799DC272AA730000C9742 /* Frameworks */,
 				117799DD272AA730000C9742 /* Resources */,
+				278F398A0F7E6B84391E8E5D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -643,6 +689,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		11CCC6E1C00691533096ECC0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Rappi Watch-Rappi WatchUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		278F398A0F7E6B84391E8E5D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Rappi Watch-Rappi WatchUITests/Pods-Rappi Watch-Rappi WatchUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Rappi Watch-Rappi WatchUITests/Pods-Rappi Watch-Rappi WatchUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Rappi Watch-Rappi WatchUITests/Pods-Rappi Watch-Rappi WatchUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3C418EBBF82857D07AE0302A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Rappi WatchTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		965C36C42ACD43B63D962324 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Rappi Watch-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5C6483BC798DA21EE9A9168 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Rappi Watch/Pods-Rappi Watch-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Rappi Watch/Pods-Rappi Watch-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Rappi Watch/Pods-Rappi Watch-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		117799BB272AA72C000C9742 /* Sources */ = {
@@ -850,6 +999,7 @@
 		};
 		117799EA272AA730000C9742 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C250A596132BC04C6DA4E53 /* Pods-Rappi Watch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -880,6 +1030,7 @@
 		};
 		117799EB272AA730000C9742 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A85FB13A751C061E67236722 /* Pods-Rappi Watch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -910,6 +1061,7 @@
 		};
 		117799ED272AA730000C9742 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C38D29BF8E7EC4F8A1008FAD /* Pods-Rappi WatchTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -935,6 +1087,7 @@
 		};
 		117799EE272AA730000C9742 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 616977B042804615FA7E0140 /* Pods-Rappi WatchTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -960,6 +1113,7 @@
 		};
 		117799F0272AA730000C9742 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E1F61A3DF8CE3195736DD89 /* Pods-Rappi Watch-Rappi WatchUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -984,6 +1138,7 @@
 		};
 		117799F1272AA730000C9742 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D7EF6434871CE72C653B903 /* Pods-Rappi Watch-Rappi WatchUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
