@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PopularRatedMovie {
+struct PopularRatedMovie: Decodable {
     var page: Int
     var results: [Movie]
     var total_pages: Int
@@ -27,7 +27,7 @@ struct Dates {
     let minimum: String
 }
 
-struct Movie {
+struct Movie: Decodable, Hashable {
     let poster_path: String?
     let adult: Bool
     let overview: String?
@@ -38,8 +38,10 @@ struct Movie {
     let original_language: String
     let title: String
     let backdrop_path: String?
-    let popularity: Double
-    let vote_count: Int
+    var popularity: Double
+    var vote_count: Int
     let video: Bool
-    let vote_average: Double
+    var vote_average: Double
 }
+
+let emptyMovie = Movie(poster_path: nil, adult: false, overview: nil, release_date: "", genre_ids: [Int](), id: 0, original_title: "", original_language: "", title: "", backdrop_path: nil, popularity: 0, vote_count: 0, video: false, vote_average: 0)

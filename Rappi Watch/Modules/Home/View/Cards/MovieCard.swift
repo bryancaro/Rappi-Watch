@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct MovieCard: View {
+    @Binding var viewModel: MovieModel
     @Binding var show: Bool
     @Binding var active: Bool
     @Binding var activeIndex: Int
@@ -24,7 +26,7 @@ struct MovieCard: View {
             VisualCard
             
             if isScrollable {
-                MovieDetailsView(show: $show, active: $active, activeIndex: $activeIndex, isScrollable: $isScrollable, bounds: bounds)
+                MovieDetailsView(viewModel: $viewModel, show: $show, active: $active, activeIndex: $activeIndex, isScrollable: $isScrollable, bounds: bounds)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
                     .animation(nil)
@@ -73,30 +75,37 @@ struct MovieCard: View {
     var VisualCard: some View {
         VStack {
             ZStack(alignment: .bottom) {
-                Image("joker")
+                WebImage(url: URL(string: viewModel.poster_path))
                     .resizable()
+                    .placeholder {
+                        Image("logo_rappi")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                    }
+                    .transition(.fade(duration: 0.5))
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: screen.width - 145)
+                    .frame(width: screen.width - 145, height: (screen.width - 145))
                 
                 LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0), .black]), startPoint: .top, endPoint: .bottom)
                     .frame(width: screen.width - 145, height: (screen.width - 145)/1.5, alignment: .center)
                     .opacity(show ? 0 : 1)
                 
                 HStack {
-                    VStack {
-                        Text("Joker")
+                    VStack(alignment: .leading) {
+                        Text(viewModel.movie.title)
                             .font(.title3)
                             .bold()
-                            .foregroundColor(.white)
                         
-                        Text("2014")
+                        Text(viewModel.movie.release_date)
                             .font(.body)
-                            .foregroundColor(.white)
                     }
+                    .foregroundColor(.white)
                     
                     Spacer()
                     
-                    RingView(textColor: .white, width: 40, height: 40)
+                    RingView(textColor: .white, width: 40, height: 40, percent: viewModel.movie.vote_average)
                 }
                 .padding(10)
                 .frame(width: screen.width - 145)
@@ -115,7 +124,7 @@ struct MovieCard: View {
 struct MovieCard_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { bounds in
-            MovieCard(show: .constant(true), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bounds: bounds, index: 0)
+            MovieCard(viewModel: .constant(MovieModel(movie: emptyMovie)), show: .constant(true), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bounds: bounds, index: 0)
         }
     }
 }

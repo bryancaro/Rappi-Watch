@@ -7,7 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		113F7BD5272CA58B003BA1D9 /* HomeServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F7BD4272CA58A003BA1D9 /* HomeServerManager.swift */; };
+		113F7BD5272CA58B003BA1D9 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F7BD4272CA58A003BA1D9 /* ServerManager.swift */; };
+		113F7BD7272CB62C003BA1D9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F7BD6272CB62C003BA1D9 /* HomeViewModel.swift */; };
+		113F7BD9272CB6A5003BA1D9 /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F7BD8272CB6A5003BA1D9 /* HomeRepository.swift */; };
+		113F7BDC272CBA12003BA1D9 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F7BDB272CBA12003BA1D9 /* ConfigurationManager.swift */; };
+		113F7BDF272CBA41003BA1D9 /* ConfigReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F7BDE272CBA41003BA1D9 /* ConfigReader.swift */; };
+		113F7BE2272CBA7B003BA1D9 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 113F7BE1272CBA7B003BA1D9 /* Configuration.plist */; };
+		113F7BE4272CD2AD003BA1D9 /* MovieDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F7BE3272CD2AD003BA1D9 /* MovieDetailsViewModel.swift */; };
+		113F7BE7272CD402003BA1D9 /* MovieRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F7BE6272CD402003BA1D9 /* MovieRepository.swift */; };
+		113F7BE9272CDC18003BA1D9 /* CountryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113F7BE8272CDC18003BA1D9 /* CountryCard.swift */; };
 		117799C3272AA72C000C9742 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117799C2272AA72C000C9742 /* AppDelegate.swift */; };
 		117799C5272AA72C000C9742 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117799C4272AA72C000C9742 /* SceneDelegate.swift */; };
 		117799CC272AA72F000C9742 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 117799CB272AA72F000C9742 /* Assets.xcassets */; };
@@ -71,7 +79,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		113F7BD4272CA58A003BA1D9 /* HomeServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeServerManager.swift; sourceTree = "<group>"; };
+		113F7BD4272CA58A003BA1D9 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
+		113F7BD6272CB62C003BA1D9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		113F7BD8272CB6A5003BA1D9 /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
+		113F7BDB272CBA12003BA1D9 /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
+		113F7BDE272CBA41003BA1D9 /* ConfigReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigReader.swift; sourceTree = "<group>"; };
+		113F7BE1272CBA7B003BA1D9 /* Configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
+		113F7BE3272CD2AD003BA1D9 /* MovieDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewModel.swift; sourceTree = "<group>"; };
+		113F7BE6272CD402003BA1D9 /* MovieRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRepository.swift; sourceTree = "<group>"; };
+		113F7BE8272CDC18003BA1D9 /* CountryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCard.swift; sourceTree = "<group>"; };
 		117799BF272AA72C000C9742 /* Rappi Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rappi Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		117799C2272AA72C000C9742 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		117799C4272AA72C000C9742 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -166,9 +182,43 @@
 		113F7BD3272CA41F003BA1D9 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				113F7BD4272CA58A003BA1D9 /* HomeServerManager.swift */,
+				113F7BD4272CA58A003BA1D9 /* ServerManager.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		113F7BDA272CB9E1003BA1D9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				113F7BDD272CBA2B003BA1D9 /* Config */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		113F7BDD272CBA2B003BA1D9 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				113F7BDB272CBA12003BA1D9 /* ConfigurationManager.swift */,
+				113F7BDE272CBA41003BA1D9 /* ConfigReader.swift */,
+				113F7BE0272CBA55003BA1D9 /* Configuration */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		113F7BE0272CBA55003BA1D9 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				113F7BE1272CBA7B003BA1D9 /* Configuration.plist */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		113F7BE5272CD3E0003BA1D9 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				113F7BE6272CD402003BA1D9 /* MovieRepository.swift */,
+			);
+			path = DataManager;
 			sourceTree = "<group>";
 		};
 		117799B6272AA72C000C9742 = {
@@ -200,6 +250,7 @@
 				113F7BD2272CA3FF003BA1D9 /* Rooting */,
 				113F7BD3272CA41F003BA1D9 /* API */,
 				11779A01272AB003000C9742 /* Utils */,
+				113F7BDA272CB9E1003BA1D9 /* Supporting Files */,
 				117799C2272AA72C000C9742 /* AppDelegate.swift */,
 				117799C4272AA72C000C9742 /* SceneDelegate.swift */,
 				117799CB272AA72F000C9742 /* Assets.xcassets */,
@@ -285,6 +336,7 @@
 				11779A0E272AB278000C9742 /* Model */,
 				11779A0D272AB274000C9742 /* View */,
 				11779A0C272AB260000C9742 /* ViewModel */,
+				113F7BE5272CD3E0003BA1D9 /* DataManager */,
 			);
 			path = Movies;
 			sourceTree = "<group>";
@@ -311,6 +363,7 @@
 		11779A08272AB21B000C9742 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
+				113F7BD8272CB6A5003BA1D9 /* HomeRepository.swift */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -318,6 +371,7 @@
 		11779A09272AB228000C9742 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				113F7BD6272CB62C003BA1D9 /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -342,6 +396,7 @@
 		11779A0C272AB260000C9742 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				113F7BE3272CD2AD003BA1D9 /* MovieDetailsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -471,6 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				11779A20272AB499000C9742 /* CompanyCard.swift */,
+				113F7BE8272CDC18003BA1D9 /* CountryCard.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -500,8 +556,8 @@
 				11779A04272AB047000C9742 /* BlurView.swift */,
 				11779A2C272AB5F3000C9742 /* RatingStartView.swift */,
 				11779A2E272AB610000C9742 /* BarChartView.swift */,
-				1192D220272C0AD000CD6216 /* CountriesView.swift */,
 				11779A3A272AB7A4000C9742 /* CompaniesView.swift */,
+				1192D220272C0AD000CD6216 /* CountriesView.swift */,
 				11779A2A272AB556000C9742 /* RingView.swift */,
 			);
 			path = Components;
@@ -546,7 +602,6 @@
 				C38D29BF8E7EC4F8A1008FAD /* Pods-Rappi WatchTests.debug.xcconfig */,
 				616977B042804615FA7E0140 /* Pods-Rappi WatchTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -669,6 +724,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				113F7BE2272CBA7B003BA1D9 /* Configuration.plist in Resources */,
 				117799CF272AA72F000C9742 /* LaunchScreen.storyboard in Resources */,
 				117799CC272AA72F000C9742 /* Assets.xcassets in Resources */,
 			);
@@ -806,8 +862,11 @@
 				11779A43272AB85B000C9742 /* TVSerieDetail.swift in Sources */,
 				11779A2B272AB556000C9742 /* RingView.swift in Sources */,
 				11DACA36272AC83900AABAB8 /* HomeView.swift in Sources */,
+				113F7BDC272CBA12003BA1D9 /* ConfigurationManager.swift in Sources */,
 				11779A3F272AB7DF000C9742 /* AnalitycsView.swift in Sources */,
+				113F7BE4272CD2AD003BA1D9 /* MovieDetailsViewModel.swift in Sources */,
 				11779A26272AB500000C9742 /* CustomButton.swift in Sources */,
+				113F7BD7272CB62C003BA1D9 /* HomeViewModel.swift in Sources */,
 				11779A28272AB520000C9742 /* SideButtonsView.swift in Sources */,
 				117799FC272AAEF3000C9742 /* LaunchScreenUI.swift in Sources */,
 				11779A31272AB666000C9742 /* RootController.swift in Sources */,
@@ -821,18 +880,22 @@
 				11779A03272AB01C000C9742 /* Utils.swift in Sources */,
 				11779A41272AB84F000C9742 /* TVSerie.swift in Sources */,
 				1192D213272BF72E00CD6216 /* GenreCard.swift in Sources */,
+				113F7BE9272CDC18003BA1D9 /* CountryCard.swift in Sources */,
 				11779A21272AB499000C9742 /* CompanyCard.swift in Sources */,
 				11779A24272AB4E1000C9742 /* HeaderView.swift in Sources */,
 				11DACA38272AC94B00AABAB8 /* MovieCard.swift in Sources */,
 				117799C3272AA72C000C9742 /* AppDelegate.swift in Sources */,
 				11DACA34272AC7D800AABAB8 /* MovieDetailsView.swift in Sources */,
 				11779A07272AB079000C9742 /* MeView.swift in Sources */,
+				113F7BE7272CD402003BA1D9 /* MovieRepository.swift in Sources */,
 				117799FE272AAF46000C9742 /* OnboardingView.swift in Sources */,
 				11779A2D272AB5F3000C9742 /* RatingStartView.swift in Sources */,
 				1192D215272BF7D900CD6216 /* SeasonCard.swift in Sources */,
 				11779A3B272AB7A4000C9742 /* CompaniesView.swift in Sources */,
-				113F7BD5272CA58B003BA1D9 /* HomeServerManager.swift in Sources */,
+				113F7BD9272CB6A5003BA1D9 /* HomeRepository.swift in Sources */,
+				113F7BD5272CA58B003BA1D9 /* ServerManager.swift in Sources */,
 				1192D21D272C07E800CD6216 /* CreatorsView.swift in Sources */,
+				113F7BDF272CBA41003BA1D9 /* ConfigReader.swift in Sources */,
 				117799C5272AA72C000C9742 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

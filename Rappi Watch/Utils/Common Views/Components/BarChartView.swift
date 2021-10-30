@@ -10,7 +10,7 @@ import SwiftUI
 struct BarChartView: View {
     @State var number: Double = 0
     var title: String
-    var data: Double
+    @Binding var data: Int
     
     var body: some View {
         VStack {
@@ -45,13 +45,13 @@ struct BarChartView: View {
     // MARK: - Actions
     func onAppear() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            number = data
+            number = Double(data)
         }
     }
 }
 
 struct BarChartView_Previews: PreviewProvider {
     static var previews: some View {
-        BarChartView(title: "Budge", data: 450000)
+        BarChartView(title: "Budge", data: .constant(0))
     }
 }

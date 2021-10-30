@@ -24,7 +24,7 @@ struct TVSerieDetailsView: View {
                     
                     MidleDetail
                     
-                    AnalitycsView()
+//                    AnalitycsView()
                     
                 }
                 .padding()
@@ -123,7 +123,7 @@ struct TVSerieDetailsView: View {
             
             CreatorsView()
             
-            CountriesView()
+//            CountriesView()
         }
     }
 }

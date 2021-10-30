@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CountriesView: View {
+    @Binding var countries: [ProductionCountries]
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Production Countries")
@@ -16,8 +18,8 @@ struct CountriesView: View {
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(1..<4) { _ in
-                        CompanyCard()
+                    ForEach(countries, id: \.self) { vm in
+                        CountryCard(image: vm.iso_3166_1, name: vm.name)
                     }
                 }
             }
@@ -27,6 +29,6 @@ struct CountriesView: View {
 
 struct CountriesView_Previews: PreviewProvider {
     static var previews: some View {
-        CountriesView()
+        CountriesView(countries: .constant([ProductionCountries]()))
     }
 }

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct AnalitycsView: View {
+    @Binding var popularity: Double
+    @Binding var voteAvg: Double
+    @Binding var voteCount: Int
     var body: some View {
         VStack(alignment: .leading) {
             Text("Analytics")
@@ -17,11 +20,11 @@ struct AnalitycsView: View {
             HStack(spacing: 30) {
                 Spacer()
 
-                RingView(textColor: .black)
+                RingView(textColor: .black, percent: CGFloat(popularity), title: "Popularity")
 
-                RingView(textColor: .black)
+                RingView(textColor: .black, percent: CGFloat(voteAvg), title: "People Voted")
 
-                RingView(textColor: .black)
+                RingView(textColor: .black, percent: CGFloat(voteCount), title: "Vote")
 
                 Spacer()
             }
@@ -31,6 +34,6 @@ struct AnalitycsView: View {
 
 struct FooterDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        AnalitycsView()
+        AnalitycsView(popularity: .constant(0), voteAvg: .constant(0), voteCount: .constant(0))
     }
 }

@@ -17,7 +17,7 @@ struct NetworksView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(1..<4) { _ in
-                        CompanyCard()
+                        CompanyCard(image: "", name: "")
                     }
                 }
             }

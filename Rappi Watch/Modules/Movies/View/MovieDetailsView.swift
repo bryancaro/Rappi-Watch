@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct MovieDetailsView: View {
+    @StateObject var detailViewModel = MovieDetailsViewModel()
+    
+    @Binding var viewModel: MovieModel
     @Binding var show: Bool
     @Binding var active: Bool
     @Binding var activeIndex: Int
@@ -20,11 +24,11 @@ struct MovieDetailsView: View {
                 CloseButton
                 
                 VStack(spacing: 20) {
-                    TopDetailsView(title: "The Joker", date: "2003-07-19", rating: 4.5, status: "Released", extrict: true)
+                    TopDetailsView(title: viewModel.movie.title, date: viewModel.movie.release_date, rating: viewModel.movie.vote_average, status: detailViewModel.detail.movie.status, extrict: viewModel.movie.adult)
                     
                     MidleDetail
                     
-                    AnalitycsView()
+                    AnalitycsView(popularity: $viewModel.movie.popularity, voteAvg: $viewModel.movie.vote_average, voteCount: $viewModel.movie.vote_count)
                     
                 }
                 .padding()
@@ -32,6 +36,7 @@ struct MovieDetailsView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 15))
             }
         }
+        .onAppear(perform: onAppear)
         .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
         .edgesIgnoringSafeArea(.vertical)
     }
@@ -39,6 +44,9 @@ struct MovieDetailsView: View {
     // MARK: - Properties
     
     // MARK: - Actions
+    func onAppear() {
+        detailViewModel.fetchDetail(id: viewModel.movie.id)
+    }
     
     // MARK: - Subviews
     var CloseButton: some View {
@@ -69,8 +77,18 @@ struct MovieDetailsView: View {
         .frame(maxWidth: show ? .infinity : bounds.size.width - 60)
         .frame(width: screen.width, height: show ? screen.height * 0.4 : screen.width - 145)
         .background(
-            Image("joker")
+            WebImage(url: URL(string: viewModel.poster_path))
                 .resizable()
+                .placeholder {
+                    Image("logo_rappi")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 50, height: 50)
+                        .clipShape(Circle())
+                }
+                .transition(.fade(duration: 0.5))
+//            Image("joker")
+//                .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: screen.width - 145)
         )
@@ -80,17 +98,17 @@ struct MovieDetailsView: View {
     
     var MidleDetail: some View {
         VStack(alignment: .leading, spacing: 15) {
-            Text("The Joker is a supervillain who appears in American comic books published by DC Comics. The Joker was created by Bill Finger, Bob Kane, and Jerry Robinson and first appeared in the debut issue of the comic book Batman on April 25, 1940.")
+            Text(viewModel.movie.overview ?? "")
                 .font(.body)
                 .foregroundColor(.black)
 
-            BarChartView(title: "Budge", data: 1000000000)
+            BarChartView(title: "Budge", data: $detailViewModel.detail.movie.budget)
 
-            BarChartView(title: "Revenue", data: 3000000)
+            BarChartView(title: "Revenue", data: $detailViewModel.detail.movie.revenue)
             
-            CompaniesView()
+            CompaniesView(companies: $detailViewModel.detail.movie.production_companies)
             
-            CountriesView()
+            CountriesView(countries: $detailViewModel.detail.movie.production_countries)
         }
     }
 }
@@ -98,7 +116,7 @@ struct MovieDetailsView: View {
 struct MovieDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { bounds in
-            MovieDetailsView(show: .constant(true), active: .constant(true), activeIndex: .constant(-1), isScrollable: .constant(true), bounds: bounds)
+            MovieDetailsView(viewModel: .constant(MovieModel(movie: emptyMovie)), show: .constant(true), active: .constant(true), activeIndex: .constant(-1), isScrollable: .constant(true), bounds: bounds)
         }
     }
 }

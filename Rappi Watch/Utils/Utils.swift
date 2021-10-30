@@ -18,6 +18,12 @@ func impact(style: UIImpactFeedbackGenerator.FeedbackStyle) {
     UIImpactFeedbackGenerator(style: style).impactOccurred()
 }
 
+func dismissLoadingView(completion: @escaping() -> Void) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        completion()
+    }
+}
+
 func getCardWidth(bounds: GeometryProxy) -> CGFloat {
     if bounds.size.width > 712 {
         return 712

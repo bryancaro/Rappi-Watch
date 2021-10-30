@@ -6,18 +6,30 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct CompanyCard: View {
+    var image: String
+    var name: String
+    
     var body: some View {
         VStack {
-            Image("logo_rappi")
+            WebImage(url: URL(string: image))
                 .resizable()
-                .aspectRatio(contentMode: .fill)
+                .placeholder {
+                    Image("logo_rappi")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 65, height: 65)
+                }
+                .transition(.fade(duration: 0.5))
+                .aspectRatio(contentMode: .fit)
                 .frame(width: 65, height: 65, alignment: .center)
+                .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 0)
             
-            Text("DreamWork")
+            Text(name)
                 .font(.caption)
                 .fontWeight(.light)
         }
@@ -27,6 +39,6 @@ struct CompanyCard: View {
 
 struct CompanyCard_Previews: PreviewProvider {
     static var previews: some View {
-        CompanyCard()
+        CompanyCard(image: "", name: "")
     }
 }

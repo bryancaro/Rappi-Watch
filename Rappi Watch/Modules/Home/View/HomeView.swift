@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(\.colorScheme) var colorScheme
     
+    @StateObject var viewModel = HomeViewModel()
+    
+    //
     @Binding var showHomeView: Bool
     @State var showMySelf = false
     
@@ -74,40 +78,42 @@ struct HomeView: View {
                                             .padding()
                                         }
                                         
-                                        ForEach(switchCard ? data.indices : data.indices) { index in
+                                        ForEach(viewModel.movies.indices, id: \.self) { index in
                                             GeometryReader { geometry in
-                                                if switchCard {
+//                                                if switchCard {
                                                     MovieCard(
-                                                        show: $data[index].show,
+                                                        viewModel: $viewModel.movies[index],
+                                                        show: $viewModel.movies[index].show,
                                                         active: $active,
                                                         activeIndex: $activeIndex,
                                                         activeView: $activeView,
                                                         isScrollable: $isScrollable,
                                                         bounds: bounds,
                                                         index: index)
-                                                        .offset(y: data[index].show ? -geometry.frame(in: .global).minY : 0)
+                                                        .offset(y: viewModel.movies[index].show ? -geometry.frame(in: .global).minY : 0)
                                                         .opacity(activeIndex != index && active ? 0 : 1)
                                                         .scaleEffect(activeIndex != index && active ? 0.5 : 1)
                                                         .offset(x: activeIndex != index && active ? screen.width : 0)
-                                                } else {
-                                                    TVSerieCard(
-                                                        show: $data[index].show,
-                                                        active: $active,
-                                                        activeIndex: $activeIndex,
-                                                        activeView: $activeView,
-                                                        isScrollable: $isScrollable,
-                                                        bounds: bounds,
-                                                        index: index)
-                                                        .offset(y: data[index].show ? -geometry.frame(in: .global).minY : 0)
-                                                        .opacity(activeIndex != index && active ? 0 : 1)
-                                                        .scaleEffect(activeIndex != index && active ? 0.5 : 1)
-                                                        .offset(x: activeIndex != index && active ? screen.width : 0)
-                                                }
+//                                                }
+//                                                else {
+//                                                    TVSerieCard(
+//                                                        show: $data[index].show,
+//                                                        active: $active,
+//                                                        activeIndex: $activeIndex,
+//                                                        activeView: $activeView,
+//                                                        isScrollable: $isScrollable,
+//                                                        bounds: bounds,
+//                                                        index: index)
+//                                                        .offset(y: data[index].show ? -geometry.frame(in: .global).minY : 0)
+//                                                        .opacity(activeIndex != index && active ? 0 : 1)
+//                                                        .scaleEffect(activeIndex != index && active ? 0.5 : 1)
+//                                                        .offset(x: activeIndex != index && active ? screen.width : 0)
+//                                                }
                                                 
                                             }
                                             .frame(height: screen.width * 0.75)
-                                            .frame(maxWidth: data[index].show ? .infinity :  screen.width - 145)
-                                            .zIndex(data[index].show ? 1 : 0)
+                                            .frame(maxWidth: viewModel.movies[index].show ? .infinity :  screen.width - 145)
+                                            .zIndex(viewModel.movies[index].show ? 1 : 0)
                                         }
                                     }
                                     .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
@@ -128,6 +134,7 @@ struct HomeView: View {
                     .frame(maxWidth: active ? .infinity : screen.width)
                     .edgesIgnoringSafeArea(.all)
                     .onAppear(perform: {
+                        viewModel.fetchPopularMovies()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                             showMySelf = true
                         }
