@@ -9,9 +9,9 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct MovieDetailsView: View {
-    @StateObject var detailViewModel = MovieDetailsViewModel()
+    @ObservedObject var detailViewModel: MovieViewModel
     
-    @Binding var viewModel: MovieModel
+    @State var viewModel: MovieModel
     @Binding var show: Bool
     @Binding var active: Bool
     @Binding var activeIndex: Int
@@ -24,11 +24,11 @@ struct MovieDetailsView: View {
                 CloseButton
                 
                 VStack(spacing: 20) {
-                    TopDetailsView(title: viewModel.movie.title, date: viewModel.movie.release_date, rating: viewModel.movie.vote_average, status: detailViewModel.detail.movie.status, extrict: viewModel.movie.adult)
+                    TopDetailsView(title: viewModel.movie.title, date: viewModel.movie.releaseDate, rating: viewModel.movie.voteAverage, status: detailViewModel.detail.movie.status, extrict: viewModel.movie.adult)
                     
                     MidleDetail
                     
-                    AnalitycsView(popularity: $viewModel.movie.popularity, voteAvg: $viewModel.movie.vote_average, voteCount: $viewModel.movie.vote_count)
+                    AnalitycsView(popularity: $viewModel.movie.popularity, voteAvg: $viewModel.movie.voteAverage, voteCount: $viewModel.movie.voteCount)
                     
                 }
                 .padding()
@@ -36,17 +36,11 @@ struct MovieDetailsView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 15))
             }
         }
-        .onAppear(perform: onAppear)
         .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
         .edgesIgnoringSafeArea(.vertical)
     }
     
     // MARK: - Properties
-    
-    // MARK: - Actions
-    func onAppear() {
-        detailViewModel.fetchDetail(id: viewModel.movie.id)
-    }
     
     // MARK: - Subviews
     var CloseButton: some View {
@@ -77,7 +71,7 @@ struct MovieDetailsView: View {
         .frame(maxWidth: show ? .infinity : bounds.size.width - 60)
         .frame(width: screen.width, height: show ? screen.height * 0.4 : screen.width - 145)
         .background(
-            WebImage(url: URL(string: viewModel.poster_path))
+            WebImage(url: URL(string: "\(ConfigReader.imgBaseUrl())\(viewModel.movie.posterPath ?? "")"))
                 .resizable()
                 .placeholder {
                     Image("logo_rappi")
@@ -87,8 +81,6 @@ struct MovieDetailsView: View {
                         .clipShape(Circle())
                 }
                 .transition(.fade(duration: 0.5))
-//            Image("joker")
-//                .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: screen.width - 145)
         )
@@ -98,7 +90,7 @@ struct MovieDetailsView: View {
     
     var MidleDetail: some View {
         VStack(alignment: .leading, spacing: 15) {
-            Text(viewModel.movie.overview ?? "")
+            Text(viewModel.movie.overview)
                 .font(.body)
                 .foregroundColor(.black)
 
@@ -106,9 +98,9 @@ struct MovieDetailsView: View {
 
             BarChartView(title: "Revenue", data: $detailViewModel.detail.movie.revenue)
             
-            CompaniesView(companies: $detailViewModel.detail.movie.production_companies)
+            CompaniesView(companies: $detailViewModel.detail.movie.productionCompanies)
             
-            CountriesView(countries: $detailViewModel.detail.movie.production_countries)
+            CountriesView(countries: $detailViewModel.detail.movie.productionCountries)
         }
     }
 }
@@ -116,7 +108,7 @@ struct MovieDetailsView: View {
 struct MovieDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { bounds in
-            MovieDetailsView(viewModel: .constant(MovieModel(movie: emptyMovie)), show: .constant(true), active: .constant(true), activeIndex: .constant(-1), isScrollable: .constant(true), bounds: bounds)
+            MovieDetailsView(detailViewModel: MovieViewModel(), viewModel: MovieModel(movie: emptyMovie), show: .constant(true), active: .constant(true), activeIndex: .constant(-1), isScrollable: .constant(true), bounds: bounds)
         }
     }
 }

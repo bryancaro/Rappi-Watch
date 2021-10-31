@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NetworksView: View {
+    @Binding var networks: [Network]
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Networks")
@@ -16,8 +17,8 @@ struct NetworksView: View {
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(1..<4) { _ in
-                        CompanyCard(image: "", name: "")
+                    ForEach(networks, id: \.self) { vm in
+                        CompanyCard(image: "\(ConfigReader.imgBaseUrl())\(vm.logoPath ?? "")", name: vm.name)
                     }
                 }
             }
@@ -27,6 +28,6 @@ struct NetworksView: View {
 
 struct NetworksView_Previews: PreviewProvider {
     static var previews: some View {
-        NetworksView()
+        NetworksView(networks: .constant([Network]()))
     }
 }

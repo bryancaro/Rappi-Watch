@@ -6,22 +6,36 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct SeasonCard: View {
+    var image: String
+    var title: String
+    var date: String
+    
     var body: some View {
         ZStack(alignment: .bottom) {
-            Image("joker")
+            WebImage(url: URL(string: "\(ConfigReader.imgBaseUrl())\(image)"))
                 .resizable()
+                .placeholder {
+                    Image("logo_rappi")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 50, height: 50)
+                        .clipShape(Circle())
+                }
+                .transition(.fade(duration: 0.5))
                 .aspectRatio(contentMode: .fill)
+                .frame(width: screen.width * 0.35, height: 80)
             
             LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0), .black]), startPoint: .top, endPoint: .bottom)
                 .frame(height: 80/1.5, alignment: .center)
             
                 VStack {
-                    Text("Season 1")
+                    Text(title)
                         .font(.body)
                     
-                    Text("2015-07-10")
+                    Text(date)
                         .font(.caption2)
                         .fontWeight(.thin)
                         .foregroundColor(.gray)
@@ -38,6 +52,6 @@ struct SeasonCard: View {
 
 struct SeasonCard_Previews: PreviewProvider {
     static var previews: some View {
-        SeasonCard()
+        SeasonCard(image: "", title: "", date: "")
     }
 }

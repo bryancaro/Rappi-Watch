@@ -78,7 +78,6 @@ struct OnboardingView: View {
                         impact(style: .heavy)
                         
                         if intros[getIndex()].id == intros.last?.id {
-                            print("Go to homeview")
                             action()
                         } else {
                             let index = min(getIndex() + 1, intros.count - 1)
@@ -105,7 +104,6 @@ struct OnboardingView: View {
     
     func getIndicatorOffset() -> CGFloat{
         let progress = offset / screenSize.width
-        // 12 = spacing + 7 = Circle size
         let maxWidth:CGFloat = 12 + 7
         return progress * maxWidth
     }

@@ -8,36 +8,83 @@
 import SwiftUI
 
 struct SideButtonsView: View {
-    @Binding var switchCard: Bool
+    @ObservedObject var viewModel: HomeViewModel
     
     var body: some View {
         VStack {
-            Text("Movies")
+            Text(viewModel.activeType.description)
                 .font(.footnote)
                 .bold()
             
-            CustomButton(active: .constant(true), image: "film.fill", action: {switchCard.toggle()})
+            CustomButtonType(get: $viewModel.activeType, set: .movies, image: "film.fill", action: typeAction)
             
-            CustomButton(active: .constant(false), image: "play.tv.fill", action: {switchCard.toggle()})
+            CustomButtonType(get: $viewModel.activeType, set: .tvSeries, image: "play.tv.fill", action: typeAction)
+            
             
             Text("Category")
                 .font(.footnote)
                 .bold()
                 .padding(.top)
             
-            CustomButton(active: .constant(true), image: "heart.fill", action: {})
+            CustomButtonCategory(get: $viewModel.activeCategory, set: .popular, image: "heart.fill", action: categoryAction)
             
-            CustomButton(active: .constant(false), image: "flame.fill", action: {})
+            CustomButtonCategory(get: $viewModel.activeCategory, set: .topRated, image: "flame.fill", action: categoryAction)
             
-            CustomButton(active: .constant(false), image: "calendar.badge.clock", action: {})
-            
+            CustomButtonCategory(get: $viewModel.activeCategory, set: .upcoming, image: "calendar.badge.clock", action: categoryAction)
         }
         .frame(maxWidth: 100)
     }
+    
+    // MARK: - Properties
+    
+    // MARK: - Actions
+    func typeAction(select: SideButtonTypeState) {
+        viewModel.activeType = select
+        categoryAction(selet: viewModel.activeCategory)
+    }
+    
+    func categoryAction(selet: SideButtonCategoryState) {
+        viewModel.activeCategory = selet
+        
+        switch selet {
+        case .popular:
+            switch viewModel.activeType {
+            case .movies:
+                viewModel.fetchPopularMovies()
+            case .tvSeries:
+                viewModel.fetchPopularTVSeries()
+            }
+            
+        case .topRated:
+            switch viewModel.activeType {
+            case .movies:
+                viewModel.fetchTopRatedMovies()
+            case .tvSeries:
+                viewModel.fetchTopRatedTVSeries()
+            }
+            
+        case .upcoming:
+            switch viewModel.activeType {
+            case .movies:
+                viewModel.fetchUpComingMovies()
+            case .tvSeries:
+                viewModel.isLoading = true
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.viewModel.series.removeAll()
+                    self.viewModel.isLoading = false
+                }
+            }
+            
+        }
+    }
+    
+    // MARK: - Subviews
+        
 }
 
 struct SideButtonsView_Previews: PreviewProvider {
     static var previews: some View {
-        SideButtonsView(switchCard: .constant(false))
+        SideButtonsView(viewModel: HomeViewModel())
     }
 }

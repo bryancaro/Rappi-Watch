@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct TVSerieDetailsView: View {
+    @ObservedObject var detailViewModel: TVSerieViewModel
+    
+    @State var viewModel: TVSerieModel
     @Binding var show: Bool
     @Binding var active: Bool
     @Binding var activeIndex: Int
@@ -20,11 +24,11 @@ struct TVSerieDetailsView: View {
                 CloseButton
                 
                 VStack(spacing: 20) {
-                    TopDetailsView(title: "The Joker", date: "2003-07-19", rating: 4.5, status: "Released", extrict: true)
+                    TopDetailsView(title: viewModel.serie.name, date: viewModel.serie.firstAirDate, rating: viewModel.serie.voteAverage, status: detailViewModel.detail.serie.status, extrict: false)
                     
                     MidleDetail
                     
-//                    AnalitycsView()
+                    AnalitycsView(popularity: $viewModel.serie.popularity, voteAvg: $viewModel.serie.voteAverage, voteCount: $viewModel.serie.voteCount)
                     
                 }
                 .padding()
@@ -69,8 +73,16 @@ struct TVSerieDetailsView: View {
         .frame(maxWidth: show ? .infinity : bounds.size.width - 60)
         .frame(width: screen.width, height: show ? screen.height * 0.4 : screen.width - 145)
         .background(
-            Image("joker")
+            WebImage(url: URL(string: viewModel.poster_path))
                 .resizable()
+                .placeholder {
+                    Image("logo_rappi")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 50, height: 50)
+                        .clipShape(Circle())
+                }
+                .transition(.fade(duration: 0.5))
                 .aspectRatio(contentMode: .fill)
                 .frame(width: screen.width - 145)
         )
@@ -80,16 +92,20 @@ struct TVSerieDetailsView: View {
     
     var MidleDetail: some View {
         VStack(alignment: .leading, spacing: 15) {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(0..<5) { data in
-                        GenreCard(name: "Crime")
+            
+            if !detailViewModel.detail.serie.genres.isEmpty {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(detailViewModel.detail.serie.genres, id: \.self) { data in
+                            GenreCard(name: data.name)
+                        }
                     }
+                    .padding(10)
                 }
-                .padding(10)
             }
             
-            Text("The Joker is a supervillain who appears in American comic books published by DC Comics. The Joker was created by Bill Finger, Bob Kane, and Jerry Robinson and first appeared in the debut issue of the comic book Batman on April 25, 1940.")
+            
+            Text(viewModel.serie.overview ?? "")
                 .font(.body)
                 .foregroundColor(.black)
 
@@ -97,7 +113,7 @@ struct TVSerieDetailsView: View {
                 Spacer()
 
                 VStack {
-                    Text("45")
+                    Text("\(detailViewModel.detail.serie.numberOfEpisodes)")
                         .font(.title)
                         .bold()
 
@@ -106,7 +122,7 @@ struct TVSerieDetailsView: View {
                 }
 
                 VStack {
-                    Text("45")
+                    Text("\(detailViewModel.detail.serie.seasons.count)")
                         .font(.title)
                         .bold()
 
@@ -117,13 +133,21 @@ struct TVSerieDetailsView: View {
                 Spacer()
             }
             
-            SeasonsView()
+            if !detailViewModel.detail.serie.seasons.isEmpty {
+                SeasonsView(season: $detailViewModel.detail.serie.seasons)
+            }
             
-            NetworksView()
+            if !detailViewModel.detail.serie.networks.isEmpty {
+                NetworksView(networks: $detailViewModel.detail.serie.networks)
+            }
             
-            CreatorsView()
+            if !detailViewModel.detail.serie.createdBy.isEmpty {
+                CreatorsView(creators: $detailViewModel.detail.serie.createdBy)
+            }
             
-//            CountriesView()
+            if !detailViewModel.detail.serie.productionCountries.isEmpty {
+                CountriesView(countries: $detailViewModel.detail.serie.productionCountries)
+            }
         }
     }
 }
@@ -131,7 +155,7 @@ struct TVSerieDetailsView: View {
 struct TVSeriesView_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { bounds in
-            TVSerieDetailsView(show: .constant(true), active: .constant(true), activeIndex: .constant(-1), isScrollable: .constant(true), bounds: bounds)
+            TVSerieDetailsView(detailViewModel: TVSerieViewModel(), viewModel: TVSerieModel(serie: emptyTVSerie), show: .constant(true), active: .constant(true), activeIndex: .constant(-1), isScrollable: .constant(true), bounds: bounds)
         }
     }
 }

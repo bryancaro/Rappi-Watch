@@ -1,5 +1,5 @@
 //
-//  MovieDetailsViewModel.swift
+//  TVSerieViewModel.swift
 //  Rappi Watch
 //
 //  Created by Bryan Caro on 10/30/21.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class MovieDetailsViewModel: ObservableObject {
+class TVSerieViewModel: ObservableObject {
     struct AppError: Identifiable {
         let id = UUID().uuidString
         let errorString: String
@@ -16,15 +16,15 @@ class MovieDetailsViewModel: ObservableObject {
     @Published var appError  : AppError? = nil
     @Published var isLoading : Bool = true
     
-    @Published var detail: MovieDetailModel = emptyMovieDetailModel
+    @Published var detail: TVSerieDetailModel = emptyTVSerieModel
     
-    private let repository: MovieRepositoryProtocol
-    init(repository: MovieRepositoryProtocol = MovieRepository()) {
+    private let repository: TVSerieRepositoryProtocol
+    init(repository: TVSerieRepositoryProtocol = TVSerieRepository()) {
         self.repository = repository
     }
     
     func fetchDetail(id: Int) {
-        repository.fetchMovieDetail(id: id, completion: { detail, error in
+        repository.fetchTVSerieDetail(id: id, completion: { detail, error in
             if let error = error {
                 haptic(type: .error)
                 dismissLoadingView {
@@ -33,21 +33,21 @@ class MovieDetailsViewModel: ObservableObject {
                 }
                 return
             }
-            
+
             guard let detail = detail else { return }
-            self.detail = MovieDetailModel(detail: detail)
+            self.detail = TVSerieDetailModel(detail: detail)
         })
     }
 }
 
-struct MovieDetailModel: Identifiable, Hashable {
+struct TVSerieDetailModel: Identifiable, Hashable {
     var id: String
-    var movie: MovieDetail
-    
-    init(detail: MovieDetail) {
+    var serie: TVSerieDetail
+
+    init(detail: TVSerieDetail) {
         self.id = UUID().uuidString
-        self.movie = detail
+        self.serie = detail
     }
 }
 
-let emptyMovieDetailModel = MovieDetailModel(detail: emptyMovieDetail)
+let emptyTVSerieModel = TVSerieDetailModel(detail: emptyTVSerieDetail)

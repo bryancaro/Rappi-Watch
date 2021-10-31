@@ -12,7 +12,7 @@ struct RatingStartView: View {
     
     @Binding var rating: Double
     
-    var maximumRating = 5
+    var maximumRating = 10
     
     var offImage: Image?
     var onImage = Image(systemName: "star.fill")

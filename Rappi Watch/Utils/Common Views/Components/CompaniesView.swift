@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CompaniesView: View {
-    @Binding var companies: [ProductionCompanies]
+    @Binding var companies: [ProductionCompany]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -19,7 +19,7 @@ struct CompaniesView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(companies, id: \.self) { vm in
-                        CompanyCard(image: "\(ConfigReader.imgBaseUrl())\(vm.logo_path ?? "")", name: vm.name)
+                        CompanyCard(image: "\(ConfigReader.imgBaseUrl())\(vm.logoPath ?? "")", name: vm.name)
                     }
                 }
             }
@@ -29,6 +29,6 @@ struct CompaniesView: View {
 
 struct CompaniesView_Previews: PreviewProvider {
     static var previews: some View {
-        CompaniesView(companies: .constant([ProductionCompanies]()))
+        CompaniesView(companies: .constant([ProductionCompany]()))
     }
 }

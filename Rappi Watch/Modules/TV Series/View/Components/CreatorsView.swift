@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CreatorsView: View {
+    @Binding var creators: [CreatedBy]
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Creators")
@@ -16,8 +18,8 @@ struct CreatorsView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 30) {
-                    ForEach(1..<4) { _ in
-                        CreatorCard()
+                    ForEach(creators, id: \.self) { vm in
+                        CreatorCard(image: vm.profilePath ?? "", name: vm.name)
                     }
                 }
                 .padding(.vertical)
@@ -28,6 +30,6 @@ struct CreatorsView: View {
 
 struct CreatorsView_Previews: PreviewProvider {
     static var previews: some View {
-        CreatorsView()
+        CreatorsView(creators: .constant([CreatedBy]()))
     }
 }

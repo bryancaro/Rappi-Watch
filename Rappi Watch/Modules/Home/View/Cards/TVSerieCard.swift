@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct TVSerieCard: View {
-    @Binding var show: Bool
+    @StateObject var detailViewModel = TVSerieViewModel()
+    @Binding var viewModel: TVSerieModel
     @Binding var active: Bool
     @Binding var activeIndex: Int
     @Binding var activeView: CGSize
@@ -24,30 +26,32 @@ struct TVSerieCard: View {
             VisualCard
             
             if isScrollable {
-                TVSerieDetailsView(show: $show, active: $active, activeIndex: $activeIndex, isScrollable: $isScrollable, bounds: bounds)
+                TVSerieDetailsView(detailViewModel: detailViewModel, viewModel: viewModel, show: $viewModel.show, active: $active, activeIndex: $activeIndex, isScrollable: $isScrollable, bounds: bounds)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
                     .animation(nil)
                     .transition(.opacity)
             }
         }
-        .frame(height: show ? screen.height : screen.height * 0.4)
+        .frame(height: viewModel.show ? screen.height : screen.height * 0.4)
         .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
         .edgesIgnoringSafeArea(.all)
     }
     
     // MARK: - Properties
     var cornerRadius: Double {
-        return show ? getCardCornerRadius(bounds: bounds) : 30
+        return viewModel.show ? getCardCornerRadius(bounds: bounds) : 30
     }
     
     // MARK: - Actions
     func onTapGesture() {
         impact(style: .heavy)
-        show.toggle()
+        print(viewModel.serie.id)
+        viewModel.show.toggle()
         active.toggle()
-        if show {
+        if viewModel.show {
             activeIndex = index
+            detailViewModel.fetchDetail(id: viewModel.serie.id)
         } else {
             activeIndex = -1
         }
@@ -62,48 +66,55 @@ struct TVSerieCard: View {
             Spacer()
         }
         .padding(30)
-        .frame(maxWidth: CGFloat(show ? .infinity : screen.width - 60), maxHeight: CGFloat(show ? .infinity : 280.0), alignment: .top)
-        .offset(y: show ? 460 : 0)
+        .frame(maxWidth: CGFloat(viewModel.show ? .infinity : screen.width - 60), maxHeight: CGFloat(viewModel.show ? .infinity : 280.0), alignment: .top)
+        .offset(y: viewModel.show ? 460 : 0)
         .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: show ? getCardCornerRadius(bounds: bounds) : 30, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: viewModel.show ? getCardCornerRadius(bounds: bounds) : 30, style: .continuous))
         .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)
-        .opacity(show ? 1 : 0)
+        .opacity(viewModel.show ? 1 : 0)
     }
     
     var VisualCard: some View {
         VStack {
             ZStack(alignment: .bottom) {
-                Image("joker")
+                WebImage(url: URL(string: viewModel.poster_path))
                     .resizable()
+                    .placeholder {
+                        Image("logo_rappi")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                    }
+                    .transition(.fade(duration: 0.5))
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: screen.width - 145)
+                    .frame(width: screen.width - 145, height: (screen.width - 145))
                 
                 LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0), .black]), startPoint: .top, endPoint: .bottom)
                     .frame(width: screen.width - 145, height: (screen.width - 145)/1.5, alignment: .center)
-                    .opacity(show ? 0 : 1)
+                    .opacity(viewModel.show ? 0 : 1)
                 
                 HStack {
-                    VStack {
-                        Text("Joker")
+                    VStack(alignment: .leading) {
+                        Text(viewModel.serie.name)
                             .font(.title3)
                             .bold()
-                            .foregroundColor(.white)
                         
-                        Text("2014")
+                        Text(viewModel.serie.firstAirDate)
                             .font(.body)
-                            .foregroundColor(.white)
                     }
+                    .foregroundColor(.white)
                     
                     Spacer()
                     
-                    RingView(textColor: .white, width: 40, height: 40)
+                    RingView(textColor: .white, width: 40, height: 40, percent: viewModel.serie.voteAverage * 10)
                 }
                 .padding(10)
                 .frame(width: screen.width - 145)
-                .opacity(show ? 0 : 1)
+                .opacity(viewModel.show ? 0 : 1)
             }
         }
-        .frame(maxWidth: show ? screen.width : screen.width - 145, maxHeight: show ? screen.height * 0.4 : screen.width - 145)
+        .frame(maxWidth: viewModel.show ? screen.width : screen.width - 145, maxHeight: viewModel.show ? screen.height * 0.4 : screen.width - 145)
         .clipShape(RoundedRectangle(cornerRadius: 15))
         .shadow(color: Color.black.opacity(0.25), radius: 10, x: 0.0, y: 30)
         .padding(.bottom)
@@ -115,7 +126,7 @@ struct TVSerieCard: View {
 struct TVSerieCard_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { bounds in
-            TVSerieCard(show: .constant(true), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bounds: bounds, index: 0)
+            TVSerieCard(viewModel: .constant(TVSerieModel(serie: emptyTVSerie)), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bounds: bounds, index: 0)
         }
     }
 }

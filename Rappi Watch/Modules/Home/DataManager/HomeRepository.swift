@@ -8,7 +8,14 @@
 import Foundation
 
 protocol HomeRepositoryProtocol {
-    func fetchPopularMovies(page: Int, completion: @escaping(PopularRatedMovie?, Error?) -> Void)
+    // MARK: - Movies
+    func fetchPopularMovies(page: Int, completion: @escaping(ResponseTopMovies?, Error?) -> Void)
+    func fetchTopRatedMovies(page: Int, completion: @escaping(ResponseTopMovies?, Error?) -> Void)
+    func fetchUpComingMovies(page: Int, completion: @escaping(Upcoming?, Error?) -> Void)
+    
+    // MARK: - TV Series
+    func fetchPopularTVSeries(page: Int, completion: @escaping(TVSerieResponse?, Error?) -> Void)
+    func fetchTopRatedTVSeries(page: Int, completion: @escaping(TVSerieResponse?, Error?) -> Void)
 }
 
 class HomeRepository {
@@ -21,7 +28,25 @@ class HomeRepository {
 }
 
 extension HomeRepository: HomeRepositoryProtocol {
-    func fetchPopularMovies(page: Int, completion: @escaping(PopularRatedMovie?, Error?) -> Void) {
+    // MARK: - Movies
+    func fetchPopularMovies(page: Int, completion: @escaping(ResponseTopMovies?, Error?) -> Void) {
         server.fetchPopularMovies(page: page, completion: completion)
+    }
+    
+    func fetchTopRatedMovies(page: Int, completion: @escaping(ResponseTopMovies?, Error?) -> Void) {
+        server.fetchTopRatedMovies(page: page, completion: completion)
+    }
+    
+    func fetchUpComingMovies(page: Int, completion: @escaping(Upcoming?, Error?) -> Void) {
+        server.fetchUpComingMovies(page: page, completion: completion)
+    }
+    
+    // MARK: - TV Series
+    func fetchPopularTVSeries(page: Int, completion: @escaping(TVSerieResponse?, Error?) -> Void) {
+        server.fetchPopularTVSeries(page: page, completion: completion)
+    }
+    
+    func fetchTopRatedTVSeries(page: Int, completion: @escaping(TVSerieResponse?, Error?) -> Void) {
+        server.fetchTopRatedTVSeries(page: page, completion: completion)
     }
 }

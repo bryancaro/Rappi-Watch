@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9B7A7CFB-7D1D-45C9-A656-3AC2EEB6A13D"
+            uuid = "FA7DADE3-9177-432A-9032-DD8B297C08E9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Rappi Watch/API/ServerManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "fetchMovieDetail(id:completion:)"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "fetchTVSerieDetail(id:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

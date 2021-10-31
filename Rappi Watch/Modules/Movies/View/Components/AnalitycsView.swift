@@ -22,9 +22,9 @@ struct AnalitycsView: View {
 
                 RingView(textColor: .black, percent: CGFloat(popularity), title: "Popularity")
 
-                RingView(textColor: .black, percent: CGFloat(voteAvg), title: "People Voted")
+                RingView(textColor: .black, percent: CGFloat(voteCount), title: "People Voted")
 
-                RingView(textColor: .black, percent: CGFloat(voteCount), title: "Vote")
+                RingView(textColor: .black, percent: CGFloat(voteAvg), title: "Vote")
 
                 Spacer()
             }

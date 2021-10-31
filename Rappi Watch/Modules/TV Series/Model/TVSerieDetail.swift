@@ -7,74 +7,76 @@
 
 import Foundation
 
-struct TVSerieDetail {
-    let backdrop_path: String?
-    let created_by: [CreatedBy]
-    let episode_run_time: [Int]
-    let first_air_date: String
-    let genres: [Genres]
-    let homepage: String
-    let id: Int
-    let in_production: Bool
-    let languages: [String]
-    let last_air_date: String
-    let last_episode_to_air: LastEpisodeToAir
-    let name: String
-    let next_episode_to_air: String?
-    let networks: [Networks]
-    let number_of_episodes: Int
-    let number_of_seasons: Int
-    let origin_country: [String]
-    let original_language: String
-    let original_name: String
-    let overview: String
-    let popularity: Double
-    let poster_path: String?
-    let production_companies: [ProductionCompanies]
-    let production_countries: [ProductionCountries]
-    let seasons: [Seasons]
-    let spoken_languages: [SpokenLanguages]
-    let status: String
-    let tagline: String
-    let type: String
-    let vote_average: Double
-    let vote_count: Int
+// MARK: - Welcome
+struct TVSerieDetail: Codable, Hashable {
+    var createdBy: [CreatedBy]
+    var genres: [Genre]
+    var id: Int
+    var networks: [Network]
+    var numberOfEpisodes, numberOfSeasons: Int
+    var productionCompanies: [ProductionCompany]
+    var productionCountries: [ProductionCountry]
+    var seasons: [Season]
+    var status: String
+
+    enum CodingKeys: String, CodingKey {
+        case createdBy = "created_by"
+        case genres
+        case id
+        case networks
+        case numberOfEpisodes = "number_of_episodes"
+        case numberOfSeasons = "number_of_seasons"
+        case productionCompanies = "production_companies"
+        case productionCountries = "production_countries"
+        case seasons
+        case status
+    }
 }
 
-struct CreatedBy {
-    let id: Int
-    let credit_id: String
-    let name: String
-    let gender: Int
-    let profile_path: String?
+let emptyTVSerieDetail = TVSerieDetail(createdBy: [CreatedBy](), genres: [Genre](), id: 0, networks: [Network](), numberOfEpisodes: 0, numberOfSeasons: 0, productionCompanies: [ProductionCompany](), productionCountries: [ProductionCountry](), seasons: [Season](), status: "")
+
+// MARK: - CreatedBy
+struct CreatedBy: Codable, Hashable {
+    var id: Int
+    var creditID, name: String
+    var gender: Int
+    var profilePath: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case creditID = "credit_id"
+        case name, gender
+        case profilePath = "profile_path"
+    }
 }
 
-struct LastEpisodeToAir {
-    let air_date: String
-    let episode_number: Int
-    let id: Int
-    let name: String
-    let overview: String
-    let production_code: String
-    let season_number: Int
-    let still_path: String?
-    let vote_average: Double
-    let vote_count: Int
+// MARK: - Network
+struct Network: Codable, Hashable {
+    var name: String
+    var id: Int
+    var logoPath: String?
+    var originCountry: String
+
+    enum CodingKeys: String, CodingKey {
+        case name, id
+        case logoPath = "logo_path"
+        case originCountry = "origin_country"
+    }
 }
 
-struct Networks {
-    let name: String
-    let id: Int
-    let logo_path: String?
-    let origin_country: String
-}
+// MARK: - Season
+struct Season: Codable, Hashable {
+    var airDate: String?
+    var episodeCount, id: Int
+    var name, overview: String?
+    var posterPath: String?
+    var seasonNumber: Int
 
-struct Seasons {
-    let air_date: String
-    let episode_count: Int
-    let id: Int
-    let name: String
-    let overview: String
-    let poster_path: String
-    let season_number: Int
+    enum CodingKeys: String, CodingKey {
+        case airDate = "air_date"
+        case episodeCount = "episode_count"
+        case id, name, overview
+        case posterPath = "poster_path"
+        case seasonNumber = "season_number"
+    }
 }

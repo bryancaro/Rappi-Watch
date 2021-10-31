@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SeasonsView: View {
+    @Binding var season: [Season]
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Seasons")
@@ -16,8 +17,8 @@ struct SeasonsView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(1..<4) { _ in
-                        SeasonCard()
+                    ForEach(season, id: \.self) { vm in
+                        SeasonCard(image: vm.posterPath ?? "", title: vm.name ?? "", date: vm.airDate ?? "")
                     }
                 }
                 .padding(.vertical)
@@ -28,6 +29,6 @@ struct SeasonsView: View {
 
 struct SeasonsView_Previews: PreviewProvider {
     static var previews: some View {
-        SeasonsView()
+        SeasonsView(season: .constant([Season]()))
     }
 }

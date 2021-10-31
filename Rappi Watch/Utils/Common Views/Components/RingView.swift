@@ -44,7 +44,7 @@ struct RingView: View {
                 .shadow(color:  Color(#colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)).opacity(0.4), radius: 3 * multiplier, x: 0, y: 0 * multiplier)
 
             Text("\(Int(percent))%")
-                .font(.system(size: 8 * multiplier))
+                .font(.system(size: 10 * multiplier))
                 .fontWeight(.bold)
                 .foregroundColor(textColor)
         }

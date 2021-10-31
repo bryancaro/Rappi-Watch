@@ -7,49 +7,53 @@
 
 import Foundation
 
-struct MovieDetail: Decodable, Hashable {
-    let id: Int
-    let adult: Bool
-    let backdrop_path: String?
+// MARK: - MovieDetail
+struct MovieDetail: Codable, Hashable {
     var budget: Int
-    let genres: [Genres]
-    let original_language: String
-    let original_title: String
-    let overview: String?
-    var popularity: Double
-    let poster_path: String?
-    var production_companies: [ProductionCompanies]
-    var production_countries: [ProductionCountries]
-    let release_date: String
+    var genres: [Genre]
+    var id: Int
+    var productionCompanies: [ProductionCompany]
+    var productionCountries: [ProductionCountry]
     var revenue: Int
-    let runtime: Int?
-    var spoken_languages: [SpokenLanguages]
-    let status: String
-    let title: String
-    var vote_average: Double
-    var vote_count: Int
+    var status: String
+
+    enum CodingKeys: String, CodingKey {
+        case budget, genres, id
+        case productionCompanies = "production_companies"
+        case productionCountries = "production_countries"
+        case revenue
+        case status
+    }
 }
 
-let emptyMovieDetail = MovieDetail(id: 0, adult: false, backdrop_path: nil, budget: 0, genres: [Genres](), original_language: "", original_title: "", overview: nil, popularity: 0, poster_path: nil, production_companies: [ProductionCompanies](), production_countries: [ProductionCountries](), release_date: "", revenue: 0, runtime: nil, spoken_languages: [SpokenLanguages](), status: "", title: "", vote_average: 0, vote_count: 0)
+let emptyMovieDetail = MovieDetail(budget: 0, genres: [Genre](), id: 0, productionCompanies: [ProductionCompany](), productionCountries: [ProductionCountry](), revenue: 0, status: "")
 
-struct Genres: Decodable, Hashable {
-    let id: Int
-    let name: String
+// MARK: - Genre
+struct Genre: Codable, Hashable {
+    var id: Int
+    var name: String
 }
 
-struct ProductionCompanies: Decodable, Hashable {
-    let name: String
-    let id: Int
-    let logo_path: String?
-    let origin_country: String
+// MARK: - ProductionCompany
+struct ProductionCompany: Codable, Hashable {
+    var id: Int
+    var logoPath: String?
+    var name, originCountry: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case logoPath = "logo_path"
+        case name
+        case originCountry = "origin_country"
+    }
 }
 
-struct ProductionCountries: Decodable, Hashable {
-    let iso_3166_1: String
-    let name: String
-}
+// MARK: - ProductionCountry
+struct ProductionCountry: Codable, Hashable {
+    var iso3166_1, name: String
 
-struct SpokenLanguages: Decodable, Hashable {
-    let iso_639_1: String
-    let name: String
+    enum CodingKeys: String, CodingKey {
+        case iso3166_1 = "iso_3166_1"
+        case name
+    }
 }
