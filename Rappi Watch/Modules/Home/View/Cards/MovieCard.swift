@@ -18,6 +18,9 @@ struct MovieCard: View {
     
     var bounds: GeometryProxy
     var index: Int
+    var showAlert: () -> Void
+    
+    private let reachability = ReachabilityManager()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -45,18 +48,23 @@ struct MovieCard: View {
     
     // MARK: - Actions
     func onTapGesture() {
-        impact(style: .heavy)
-        viewModel.show.toggle()
-        active.toggle()
-        if viewModel.show {
-            activeIndex = index
-            detailViewModel.fetchDetail(id: viewModel.movie.id)
+        if reachability.isConnected() {
+            impact(style: .heavy)
+            viewModel.show.toggle()
+            active.toggle()
+            if viewModel.show {
+                activeIndex = index
+                detailViewModel.fetchDetail(id: viewModel.movie.id)
+            } else {
+                activeIndex = -1
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                isScrollable = true
+            }
         } else {
-            activeIndex = -1
+            showAlert()
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-            isScrollable = true
-        }
+        
     }
     
     // MARK: - Subviews
@@ -125,7 +133,7 @@ struct MovieCard: View {
 struct MovieCard_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { bounds in
-            MovieCard(viewModel: .constant(MovieModel(movie: emptyMovie)), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bounds: bounds, index: 0)
+            MovieCard(viewModel: .constant(MovieModel(movie: emptyMovie)), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bounds: bounds, index: 0, showAlert: {})
         }
     }
 }

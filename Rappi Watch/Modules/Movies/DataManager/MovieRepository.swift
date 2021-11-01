@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MovieRepositoryProtocol {
-    func fetchMovieDetail(id: Int, completion: @escaping(MovieDetail?, Error?) -> Void)
+    func fetchMovieDetail(id: Int, completion: @escaping(MovieDetail?, ServerError?) -> Void)
 }
 
 class MovieRepository {
@@ -21,7 +21,7 @@ class MovieRepository {
 }
 
 extension MovieRepository: MovieRepositoryProtocol {
-    func fetchMovieDetail(id: Int, completion: @escaping(MovieDetail?, Error?) -> Void) {
+    func fetchMovieDetail(id: Int, completion: @escaping(MovieDetail?, ServerError?) -> Void) {
         server.fetchMovieDetail(id: id, completion: completion)
     }
 }

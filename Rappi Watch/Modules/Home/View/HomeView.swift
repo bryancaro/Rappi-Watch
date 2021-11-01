@@ -91,7 +91,8 @@ struct HomeView: View {
                                                                 activeView: $activeView,
                                                                 isScrollable: $isScrollable,
                                                                 bounds: bounds,
-                                                                index: index)
+                                                                index: index,
+                                                                showAlert: showAlert)
                                                                 .offset(y: (commitSearch.isEmpty ? viewModel.movies[index].show : searchMovies[index].show) ? -geometry.frame(in: .global).minY : 0)
                                                                 .opacity(activeIndex != index && active ? 0 : 1)
                                                                 .scaleEffect(activeIndex != index && active ? 0.5 : 1)
@@ -123,7 +124,8 @@ struct HomeView: View {
                                                                 activeView: $activeView,
                                                                 isScrollable: $isScrollable,
                                                                 bounds: bounds,
-                                                                index: index)
+                                                                index: index,
+                                                                showAlert: showAlert)
                                                                 .offset(y: (commitSearch.isEmpty ? viewModel.series[index].show : searchTVSeries[index].show) ? -geometry.frame(in: .global).minY : 0)
                                                                 .opacity(activeIndex != index && active ? 0 : 1)
                                                                 .scaleEffect(activeIndex != index && active ? 0.5 : 1)
@@ -161,6 +163,12 @@ struct HomeView: View {
                     .frame(maxWidth: active ? .infinity : screen.width)
                     .edgesIgnoringSafeArea(.all)
                     .onAppear(perform: onAppear)
+                    .alert(item: $viewModel.appError) { appAlert in
+                        Alert(title: Text("Error"),
+                              message: Text("\(appAlert.errorString)"),
+                              dismissButton: .default(Text("OK"))
+                        )
+                    }
                 }
             }
             .sheet(isPresented: $showMySelf, content: {
@@ -201,6 +209,10 @@ struct HomeView: View {
         case .tvSeries:
             searchTVSeries = viewModel.series.filter({$0.serie.name.contains(searchText)})
         }
+    }
+    
+    func showAlert() {
+        viewModel.showAlert(mssg: "This is a demo application, please request the full version")
     }
     
     // MARK: - Subviews

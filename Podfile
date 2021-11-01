@@ -10,6 +10,7 @@ target 'Rappi Watch' do
   pod 'CodableFirebase'
   pod 'SDWebImageSwiftUI'
   pod 'lottie-ios'
+  pod 'ReachabilitySwift'
 
   target 'Rappi WatchTests' do
     inherit! :search_paths

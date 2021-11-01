@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FA7DADE3-9177-432A-9032-DD8B297C08E9"
+            uuid = "D3DFC7A9-DF1F-4122-BB80-006E033A9E22"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Rappi Watch/API/ServerManager.swift"
+            filePath = "Rappi Watch/Modules/Home/DataManager/Storage/TVSerieStorage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "fetchTVSerieDetail(id:completion:)"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "saveAllOnDisk(movies:category:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A019FBE1-F326-4BA0-8212-B3D6A76C4C52"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Rappi Watch/Modules/Home/DataManager/Storage/TVSerieStorage.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "init()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

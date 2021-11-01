@@ -8,7 +8,7 @@
 import Foundation
 
 protocol TVSerieRepositoryProtocol {
-    func fetchTVSerieDetail(id: Int, completion: @escaping(TVSerieDetail?, Error?) -> Void)
+    func fetchTVSerieDetail(id: Int, completion: @escaping(TVSerieDetail?, ServerError?) -> Void)
 }
 
 class TVSerieRepository {
@@ -21,7 +21,7 @@ class TVSerieRepository {
 }
 
 extension TVSerieRepository: TVSerieRepositoryProtocol {
-    func fetchTVSerieDetail(id: Int, completion: @escaping(TVSerieDetail?, Error?) -> Void) {
+    func fetchTVSerieDetail(id: Int, completion: @escaping(TVSerieDetail?, ServerError?) -> Void) {
         server.fetchTVSerieDetail(id: id, completion: completion)
     }
 }

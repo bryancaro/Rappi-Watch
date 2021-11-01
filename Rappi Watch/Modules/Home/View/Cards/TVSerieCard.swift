@@ -18,6 +18,9 @@ struct TVSerieCard: View {
     
     var bounds: GeometryProxy
     var index: Int
+    var showAlert: () -> Void
+    
+    private let reachability = ReachabilityManager()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -45,18 +48,22 @@ struct TVSerieCard: View {
     
     // MARK: - Actions
     func onTapGesture() {
-        impact(style: .heavy)
-        print(viewModel.serie.id)
-        viewModel.show.toggle()
-        active.toggle()
-        if viewModel.show {
-            activeIndex = index
-            detailViewModel.fetchDetail(id: viewModel.serie.id)
+        if reachability.isConnected() {
+            impact(style: .heavy)
+            print(viewModel.serie.id)
+            viewModel.show.toggle()
+            active.toggle()
+            if viewModel.show {
+                activeIndex = index
+                detailViewModel.fetchDetail(id: viewModel.serie.id)
+            } else {
+                activeIndex = -1
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                isScrollable = true
+            }
         } else {
-            activeIndex = -1
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-            isScrollable = true
+            showAlert()
         }
     }
     
@@ -126,7 +133,7 @@ struct TVSerieCard: View {
 struct TVSerieCard_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { bounds in
-            TVSerieCard(viewModel: .constant(TVSerieModel(serie: emptyTVSerie)), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bounds: bounds, index: 0)
+            TVSerieCard(viewModel: .constant(TVSerieModel(serie: emptyTVSerie)), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bounds: bounds, index: 0, showAlert: {})
         }
     }
 }
