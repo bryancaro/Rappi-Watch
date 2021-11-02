@@ -1,4 +1,7 @@
-# Rappi-Watch
+![L1](https://user-images.githubusercontent.com/58017823/139906501-2f1772f3-6537-4ca0-9416-405107053ec2.png)
+
+# Rappi-Watch!
+
 
 La aplicación permite a los usuarios visualizar un catalogo de peliculas y series de tv por categorias con sus respectivos detalles.
 
@@ -39,6 +42,13 @@ end
 ```
 Tenga en cuenta que esto requiere la versión 36 de CocoaPods y que su destino de implementación de iOS sea al menos 9.0
 
+### Video:
+https://user-images.githubusercontent.com/58017823/139905660-2a943267-0c1d-4fd9-af2c-a6630381253e.mov
+
 ### Developer: 
-     
-- Bryan Caro Monsalve
+     - Bryan Caro Monsalve
+
+
+
+
+
