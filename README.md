@@ -79,10 +79,10 @@ Data Access Layer is represented by Repositories.
 Repositories provide asynchronous API (Publisher from Combine) for making CRUD operations on the backend or a local database. They don't contain business logic, neither do they mutate the AppState. Repositories are accessible and used only by the Interactors.
 
 ### Questions
-- En qué consiste el principio de responsabilidad única? Cuál es su propósito?
+#### En qué consiste el principio de responsabilidad única? Cuál es su propósito?
 Consiste en el desarrollo con clases que solo se dediquen a una tarea en especifico, con el proposito que el mantenimiento o mejora sea de facil de implementar en el codigo.
 
-- Qué características tiene, según su opinión, un “buen” código o código limpio
+#### Qué características tiene, según su opinión, un “buen” código o código limpio
 * Nombres de clases y funciones sencillos
 * Componentes reutilizables 
 * Organizar por medio de carpetas 
