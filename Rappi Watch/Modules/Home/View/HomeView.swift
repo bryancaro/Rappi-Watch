@@ -63,11 +63,11 @@ struct HomeView: View {
                                         } else {
                                             switch viewModel.activeType {
                                             case .movies:
-                                                if !viewModel.movies.isEmpty {
+                                                if (commitSearch.isEmpty && !viewModel.movies.isEmpty) || (!commitSearch.isEmpty && !searchMovies.isEmpty) {
                                                     ForEach(commitSearch.isEmpty ? viewModel.movies.indices : searchMovies.indices, id: \.self) { index in
                                                         GeometryReader { geometry in
                                                             MovieCard(
-                                                                viewModel: commitSearch.isEmpty ? $viewModel.movies[index] : $searchMovies[index],
+                                                                viewModel: commitSearch.isEmpty ? $viewModel.movies : $searchMovies,
                                                                 active: $active,
                                                                 activeIndex: $activeIndex,
                                                                 activeView: $activeView,
@@ -100,7 +100,7 @@ struct HomeView: View {
                                                     ForEach(commitSearch.isEmpty ? viewModel.series.indices : searchTVSeries.indices, id: \.self) { index in
                                                         GeometryReader { geometry in
                                                             TVSerieCard(
-                                                                viewModel: commitSearch.isEmpty ? $viewModel.series[index] : $searchTVSeries[index],
+                                                                viewModel: commitSearch.isEmpty ? $viewModel.series : $searchTVSeries,
                                                                 active: $active,
                                                                 activeIndex: $activeIndex,
                                                                 activeView: $activeView,
@@ -196,6 +196,7 @@ struct HomeView: View {
     
     func onCommit() {
         commitSearch = searchText
+        
         switch viewModel.activeType {
         case .movies:
             searchMovies = viewModel.movies.filter({$0.movie.title.contains(searchText)})
