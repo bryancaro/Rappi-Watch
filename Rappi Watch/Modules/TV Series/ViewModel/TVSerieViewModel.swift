@@ -33,7 +33,7 @@ class TVSerieViewModel: ObservableObject {
                 }
                 return
             }
-
+            
             guard let detail = detail else { return }
             self.detail = TVSerieDetailModel(detail: detail)
         })
@@ -43,7 +43,7 @@ class TVSerieViewModel: ObservableObject {
 struct TVSerieDetailModel: Identifiable, Hashable {
     var id: String
     var serie: TVSerieDetail
-
+    
     init(detail: TVSerieDetail) {
         self.id = UUID().uuidString
         self.serie = detail

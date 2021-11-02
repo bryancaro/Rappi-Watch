@@ -18,7 +18,7 @@ struct MeView: View {
             CoverView()
             
             VStack(spacing: 20) {
-                Text("Knowledge Test in iOS Application Development")
+                Text("me_title".localized)
                     .font(.title2)
                     .bold()
                     .multilineTextAlignment(.center)
@@ -34,7 +34,7 @@ struct MeView: View {
                     .multilineTextAlignment(.leading)
                 
                 Button(action: action) {
-                    Text("Skip")
+                    Text("skip_title".localized)
                         .font(.title2)
                         .bold()
                         .foregroundColor(.white)
@@ -44,6 +44,7 @@ struct MeView: View {
                         .shadow(color: Color.black.opacity(0.4), radius: 15, x: 0, y: 10)
                 }
                 .buttonStyle(.plain)
+                .accessibilityIdentifier("skipMeButton")
             }
             .padding(.horizontal)
             .offset(y: 440)
@@ -72,7 +73,7 @@ struct CoverView: View {
                         .frame(width: 70, height: 70, alignment: .center)
                         .clipShape(Circle())
                     
-                    Text("Bryan Caro Monsalve\niOS Developer")
+                    Text("me_name".localized)
                         .font(.system(size: geometry.size.width/15, weight: .bold))
                         .foregroundColor(.black)
                         .padding(10)

@@ -21,14 +21,14 @@ struct TopDetailsView: View {
                     Text(title)
                         .font(.title)
                         .bold()
-
+                    
                     Text(date)
                         .font(.body)
                         .foregroundColor(.gray)
                 }
-
+                
                 Spacer()
-
+                
                 if extrict {
                     Image("18")
                         .resizable()
@@ -37,9 +37,9 @@ struct TopDetailsView: View {
                         .transition(.move(edge: .trailing))
                 }
             }
-
+            
             RatingStartView(rating: .constant(rating))
-
+            
             Text(status)
                 .font(.body)
                 .foregroundColor(.gray)

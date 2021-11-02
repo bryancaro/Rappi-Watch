@@ -1,0 +1,32 @@
+/* 
+ Localizable.strings
+ Rappi Watch
+ 
+ Created by Bryan Caro on 11/2/21.
+ 
+ */
+
+"first_onboarding_title" = "Discover great new movies";
+"first_onboarding_description" = "And never miss the ones one you want to watch";
+"second_onboarding_title" = "Discover great TV series";
+"second_onboarding_description" = "And see which one is with the best score";
+"sideButton_title" = "Category";
+"loading_title" = "Loading";
+"search_cover_title" = "What are you looking for?";
+"no_found_title" = "No found";
+"analytic_title" = "Analytics";
+"pop_title" = "Popularity";
+"people_voted_title" = "People Voted";
+"vote_title" = "Vote";
+"season_title" = "Seasons";
+"creator_title" = "Creators";
+"network_title" = "Networks";
+"ep_title" = "Episodes";
+"me_title" = "Knowledge Test in iOS Application Development";
+"skip_title" = "Skip";
+"me_name" = "Bryan Caro Monsalve\niOS Developer";
+"server_error_description" = "Sorry for the inconvenience, please try again later!";
+"decoding_error_description" = "Sorry for the inconvenience, please contact the developer!";
+"prod_company_title" = "Production Companies";
+"prod_country_title" = "Production Countries";
+

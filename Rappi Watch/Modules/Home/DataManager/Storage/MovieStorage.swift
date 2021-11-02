@@ -92,7 +92,6 @@ class MovieStorage {
     }
     
     func saveMovieOnDisk(_ movie: Movie, category: SideButtonCategoryState) {
-        print("DEBUG: Saving....")
         let encoder = JSONEncoder()
         let title = movie.id
         let fileURL = documentsURL.appendingPathComponent(category.description).appendingPathComponent("\(title).json")
@@ -104,8 +103,6 @@ class MovieStorage {
             } catch let error {
                 print(error.localizedDescription)
             }
-        } else {
-            print("DEBUG: Documento ya existe")
         }
     }
     

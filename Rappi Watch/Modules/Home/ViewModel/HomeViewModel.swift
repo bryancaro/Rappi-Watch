@@ -8,45 +8,6 @@
 import Foundation
 import Combine
 
-enum SideButtonTypeState: CustomStringConvertible {
-    case movies
-    case tvSeries
-    
-    init() {
-        self = .movies
-    }
-    
-    var description: String {
-        switch self {
-        case .movies:
-            return "Movies"
-        case .tvSeries:
-            return "TV Series"
-        }
-    }
-}
-
-enum SideButtonCategoryState: CustomStringConvertible {
-    case popular
-    case topRated
-    case upcoming
-    
-    init() {
-        self = .popular
-    }
-    
-    var description: String {
-        switch self {
-        case .popular:
-            return "Popular"
-        case .topRated:
-            return "Top-Rated"
-        case .upcoming:
-            return "Up-Coming"
-        }
-    }
-}
-
 class HomeViewModel: ObservableObject {
     struct AppError: Identifiable {
         let id = UUID().uuidString
@@ -122,10 +83,9 @@ class HomeViewModel: ObservableObject {
     }
     
     func fetchMorePopularMovies() {
-        if !reachability.isConnected() {
+        if reachability.isConnected() {
             if actualPage >= totalPage {
                 haptic(type: .warning)
-                print("Button desactivated")
             } else {
                 actualPage += 1
                 repository.fetchPopularMovies(page: actualPage, completion: { popularMovies, error in
@@ -175,10 +135,9 @@ class HomeViewModel: ObservableObject {
     }
     
     func fetchMoreTopRatedMovies() {
-        if !reachability.isConnected() {
+        if reachability.isConnected() {
             if actualPage >= totalPage {
                 haptic(type: .warning)
-                print("Button desactivated")
             } else {
                 actualPage += 1
                 repository.fetchTopRatedMovies(page: actualPage, completion: { topRatedMovies, error in
@@ -228,10 +187,9 @@ class HomeViewModel: ObservableObject {
     }
     
     func fetchMoreUpComingMovies() {
-        if !reachability.isConnected() {
+        if reachability.isConnected() {
             if actualPage >= totalPage {
                 haptic(type: .warning)
-                print("Button desactivated")
             } else {
                 actualPage += 1
                 repository.fetchUpComingMovies(page: actualPage, completion: { upComingMovies, error in
@@ -278,10 +236,9 @@ class HomeViewModel: ObservableObject {
     }
     
     func fetchMorePopularTVSeries() {
-        if !reachability.isConnected() {
+        if reachability.isConnected() {
             if actualPage >= totalPage {
                 haptic(type: .warning)
-                print("Button desactivated")
             } else {
                 actualPage += 1
                 repository.fetchPopularTVSeries(page: actualPage, completion: { popular, error in
@@ -316,10 +273,10 @@ class HomeViewModel: ObservableObject {
                 }
                 return
             }
-
+            
             guard let popular = popular else { return }
             self.series = popular.results.map({ TVSerieModel(serie: $0)})
-
+            
             dismissLoadingView {
                 self.isLoading = false
             }
@@ -327,10 +284,9 @@ class HomeViewModel: ObservableObject {
     }
     
     func fetchMoreTopRatedTVSeries() {
-        if !reachability.isConnected() {
+        if reachability.isConnected() {
             if actualPage >= totalPage {
                 haptic(type: .warning)
-                print("Button desactivated")
             } else {
                 actualPage += 1
                 repository.fetchTopRatedTVSeries(page: actualPage, completion: { popular, error in
@@ -376,11 +332,50 @@ struct TVSerieModel: Identifiable, Hashable {
     var show: Bool
     var serie: TVSerie
     var poster_path: String
-
+    
     init(serie: TVSerie) {
         self.id = UUID().uuidString
         self.show = false
         self.serie = serie
         self.poster_path = "\(ConfigReader.imgBaseUrl())\(serie.posterPath ?? "")"
+    }
+}
+
+enum SideButtonTypeState: CustomStringConvertible {
+    case movies
+    case tvSeries
+    
+    init() {
+        self = .movies
+    }
+    
+    var description: String {
+        switch self {
+        case .movies:
+            return "Movies"
+        case .tvSeries:
+            return "TV Series"
+        }
+    }
+}
+
+enum SideButtonCategoryState: CustomStringConvertible {
+    case popular
+    case topRated
+    case upcoming
+    
+    init() {
+        self = .popular
+    }
+    
+    var description: String {
+        switch self {
+        case .popular:
+            return "Popular"
+        case .topRated:
+            return "Top-Rated"
+        case .upcoming:
+            return "Up-Coming"
+        }
     }
 }

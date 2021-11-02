@@ -17,11 +17,12 @@ struct SideButtonsView: View {
                 .bold()
             
             CustomButtonType(get: $viewModel.activeType, set: .movies, image: "film.fill", action: typeAction)
+                .accessibilityIdentifier("movieCategoryButton")
             
             CustomButtonType(get: $viewModel.activeType, set: .tvSeries, image: "play.tv.fill", action: typeAction)
+                .accessibilityIdentifier("tvSerieCategoryButton")
             
-            
-            Text("Category")
+            Text("sideButton_title".localized)
                 .font(.footnote)
                 .bold()
                 .padding(.top)
@@ -34,9 +35,7 @@ struct SideButtonsView: View {
         }
         .frame(maxWidth: 100)
     }
-    
-    // MARK: - Properties
-    
+        
     // MARK: - Actions
     func typeAction(select: SideButtonTypeState) {
         viewModel.activeType = select
@@ -75,12 +74,8 @@ struct SideButtonsView: View {
                     self.viewModel.isLoading = false
                 }
             }
-            
         }
     }
-    
-    // MARK: - Subviews
-        
 }
 
 struct SideButtonsView_Previews: PreviewProvider {

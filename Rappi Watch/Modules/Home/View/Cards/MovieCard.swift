@@ -64,7 +64,6 @@ struct MovieCard: View {
         } else {
             showAlert()
         }
-        
     }
     
     // MARK: - Subviews
@@ -127,7 +126,6 @@ struct MovieCard: View {
         .padding(.bottom)
         .onTapGesture(perform: onTapGesture)
     }
-    
 }
 
 struct MovieCard_Previews: PreviewProvider {
@@ -137,5 +135,3 @@ struct MovieCard_Previews: PreviewProvider {
         }
     }
 }
-
-let defaulttext = "The Joker is a supervillain who appears in American comic books published by DC Comics. The Joker was created by Bill Finger, Bob Kane, and Jerry Robinson and first appeared in the debut issue of the comic book Batman on April 25, 1940."

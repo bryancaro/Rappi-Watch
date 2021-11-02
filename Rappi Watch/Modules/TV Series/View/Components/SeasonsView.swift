@@ -11,7 +11,7 @@ struct SeasonsView: View {
     @Binding var season: [Season]
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Text("Seasons")
+            Text("season_title".localized)
                 .font(.body)
                 .bold()
             

@@ -20,16 +20,13 @@ class ReachabilityManager {
         reachability!.whenReachable = { reachability in
             if reachability.connection == .wifi {
                 self.reachable = true
-                print("Reachable via WiFi")
             } else {
                 self.reachable = true
-                print("Reachable via Cellular")
             }
         }
         
         reachability!.whenUnreachable = { _ in
             self.reachable = false
-            print("Not reachable")
         }
         
         do {

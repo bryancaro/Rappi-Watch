@@ -29,7 +29,7 @@ struct HeaderView: View {
             SearchBar
         }
     }
-
+    
     // MARK: - Subviews
     var SearchBar: some View {
         ZStack {
@@ -39,6 +39,7 @@ struct HeaderView: View {
                 
                 TextField(text, text: $searchText, onEditingChanged: onEditingChanged, onCommit: onCommit)
                     .font(.system(size: 15))
+                    .accessibilityIdentifier("SearchFilter")
             }
             .foregroundColor(.gray)
             .padding(.leading, 13)

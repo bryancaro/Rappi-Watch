@@ -11,13 +11,6 @@ import SDWebImageSwiftUI
 struct TVSerieDetailsView: View {
     @ObservedObject var detailViewModel: TVSerieViewModel
     
-    @State var viewModel: TVSerieModel
-    @Binding var show: Bool
-    @Binding var active: Bool
-    @Binding var activeIndex: Int
-    @Binding var isScrollable: Bool
-    var bounds: GeometryProxy
-    
     var body: some View {
         ScrollView {
             VStack {
@@ -41,6 +34,12 @@ struct TVSerieDetailsView: View {
     }
     
     // MARK: - Properties
+    @State var viewModel: TVSerieModel
+    @Binding var show: Bool
+    @Binding var active: Bool
+    @Binding var activeIndex: Int
+    @Binding var isScrollable: Bool
+    var bounds: GeometryProxy
     
     // MARK: - Actions
     
@@ -92,7 +91,6 @@ struct TVSerieDetailsView: View {
     
     var MidleDetail: some View {
         VStack(alignment: .leading, spacing: 15) {
-            
             if !detailViewModel.detail.serie.genres.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
@@ -104,32 +102,31 @@ struct TVSerieDetailsView: View {
                 }
             }
             
-            
-            Text(viewModel.serie.overview ?? "")
+            Text(viewModel.serie.overview)
                 .font(.body)
                 .foregroundColor(.black)
-
+            
             HStack(spacing: 40) {
                 Spacer()
-
+                
                 VStack {
                     Text("\(detailViewModel.detail.serie.numberOfEpisodes)")
                         .font(.title)
                         .bold()
-
-                    Text("Episodes")
+                    
+                    Text("ep_title".localized)
                         .font(.subheadline)
                 }
-
+                
                 VStack {
                     Text("\(detailViewModel.detail.serie.seasons.count)")
                         .font(.title)
                         .bold()
-
-                    Text("Seasons")
+                    
+                    Text("season_title".localized)
                         .font(.subheadline)
                 }
-
+                
                 Spacer()
             }
             

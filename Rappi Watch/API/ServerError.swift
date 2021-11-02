@@ -14,10 +14,10 @@ enum ServerError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .serverError:
-            return NSLocalizedString("Sorry for the inconvenience, please try again later!", comment: "")
+            return NSLocalizedString("server_error_description".localized, comment: "")
             
         case .decodingError:
-            return NSLocalizedString("Sorry for the inconvenience, please contact the developer!", comment: "")
+            return NSLocalizedString("decoding_error_description".localized, comment: "")
         }
     }
 }

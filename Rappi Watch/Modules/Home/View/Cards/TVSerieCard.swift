@@ -50,7 +50,6 @@ struct TVSerieCard: View {
     func onTapGesture() {
         if reachability.isConnected() {
             impact(style: .heavy)
-            print(viewModel.serie.id)
             viewModel.show.toggle()
             active.toggle()
             if viewModel.show {
@@ -127,7 +126,6 @@ struct TVSerieCard: View {
         .padding(.bottom)
         .onTapGesture(perform: onTapGesture)
     }
-    
 }
 
 struct TVSerieCard_Previews: PreviewProvider {

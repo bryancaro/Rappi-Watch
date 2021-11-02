@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// Custom view that will return offset for paging control
 struct PageControl<Content: View>: UIViewRepresentable {
     var content: Content
       @Binding var offset: CGFloat
@@ -23,7 +22,7 @@ struct PageControl<Content: View>: UIViewRepresentable {
     
     func makeUIView(context: Context) -> UIScrollView {
         let scrollview = UIScrollView()
-        // Extracting SwiftUI View and embedding into UIKit
+
         let hostview = UIHostingController(rootView: content)
         hostview.view.translatesAutoresizingMaskIntoConstraints = false
         let constraints = [
@@ -31,29 +30,25 @@ struct PageControl<Content: View>: UIViewRepresentable {
             hostview.view.leadingAnchor.constraint(equalTo: scrollview.leadingAnchor),
             hostview.view.trailingAnchor.constraint(equalTo: scrollview.trailingAnchor),
             hostview.view.bottomAnchor.constraint(equalTo: scrollview.bottomAnchor),
-            
-            // Don't declare height constraint if using vertical pagin
             hostview.view.heightAnchor.constraint(equalTo: scrollview.heightAnchor)
         ]
-        // Enabling Paging
+
         scrollview.isPagingEnabled = true
         scrollview.showsVerticalScrollIndicator = false
         scrollview.showsHorizontalScrollIndicator = false
-        // Setting Delegate
+
         scrollview.delegate = context.coordinator
         scrollview.addSubview(hostview.view)
         scrollview.addConstraints(constraints)
         return scrollview
     }
     func updateUIView(_ uiView: UIScrollView, context: Context) {
-        // Update only when offset changed manually
-        // Check the current nad scrollView offsets..
         let currentOffset = uiView.contentOffset.x
         if currentOffset != offset{
             uiView.setContentOffset(CGPoint(x: offset, y: 0), animated: true)
         }
     }
-    //Pager Offset
+
     class Coordinator: NSObject, UIScrollViewDelegate {
         var parent: PageControl
         init(parent: PageControl) {

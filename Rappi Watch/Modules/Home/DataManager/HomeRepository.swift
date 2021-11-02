@@ -20,7 +20,6 @@ protocol HomeRepositoryProtocol {
 
 class HomeRepository {
     private let server: ServerManager
-    //    private let local  = UserLocalService()
     
     init(server: ServerManager = ServerManager()) {
         self.server = server

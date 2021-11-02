@@ -11,20 +11,21 @@ struct AnalitycsView: View {
     @Binding var popularity: Double
     @Binding var voteAvg: Double
     @Binding var voteCount: Int
+
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Analytics")
+            Text("analytic_title".localized)
                 .font(.body)
                 .bold()
 
             HStack(spacing: 30) {
                 Spacer()
 
-                RingView(textColor: .black, percent: CGFloat(popularity), title: "Popularity")
+                RingView(textColor: .black, percent: CGFloat(popularity), title: "pop_title".localized)
 
-                RingView(textColor: .black, percent: CGFloat(voteCount), title: "People Voted")
+                RingView(textColor: .black, percent: CGFloat(voteCount), title: "people_voted_title".localized)
 
-                RingView(textColor: .black, percent: CGFloat(voteAvg), title: "Vote")
+                RingView(textColor: .black, percent: CGFloat(voteAvg), title: "vote_title".localized)
 
                 Spacer()
             }

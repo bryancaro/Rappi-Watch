@@ -12,7 +12,7 @@ struct CompaniesView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Text("Production Companies")
+            Text("prod_company_title".localized)
                 .font(.body)
                 .bold()
 

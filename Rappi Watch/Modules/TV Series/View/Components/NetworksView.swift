@@ -11,7 +11,7 @@ struct NetworksView: View {
     @Binding var networks: [Network]
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Text("Networks")
+            Text("network_title".localized)
                 .font(.body)
                 .bold()
 

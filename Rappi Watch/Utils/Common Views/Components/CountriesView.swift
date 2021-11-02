@@ -12,7 +12,7 @@ struct CountriesView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Text("Production Countries")
+            Text("prod_country_title".localized)
                 .font(.body)
                 .bold()
 

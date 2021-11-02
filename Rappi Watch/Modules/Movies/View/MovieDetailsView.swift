@@ -11,13 +11,6 @@ import SDWebImageSwiftUI
 struct MovieDetailsView: View {
     @ObservedObject var detailViewModel: MovieViewModel
     
-    @State var viewModel: MovieModel
-    @Binding var show: Bool
-    @Binding var active: Bool
-    @Binding var activeIndex: Int
-    @Binding var isScrollable: Bool
-    var bounds: GeometryProxy
-    
     var body: some View {
         ScrollView {
             VStack {
@@ -41,6 +34,12 @@ struct MovieDetailsView: View {
     }
     
     // MARK: - Properties
+    @State var viewModel: MovieModel
+    @Binding var show: Bool
+    @Binding var active: Bool
+    @Binding var activeIndex: Int
+    @Binding var isScrollable: Bool
+    var bounds: GeometryProxy
     
     // MARK: - Subviews
     var CloseButton: some View {
@@ -93,9 +92,9 @@ struct MovieDetailsView: View {
             Text(viewModel.movie.overview)
                 .font(.body)
                 .foregroundColor(.black)
-
+            
             BarChartView(title: "Budge", data: $detailViewModel.detail.movie.budget)
-
+            
             BarChartView(title: "Revenue", data: $detailViewModel.detail.movie.revenue)
             
             CompaniesView(companies: $detailViewModel.detail.movie.productionCompanies)

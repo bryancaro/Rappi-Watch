@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Welcome
+// MARK: - TVSerieDetail
 struct TVSerieDetail: Codable, Hashable {
     var createdBy: [CreatedBy]
     var genres: [Genre]

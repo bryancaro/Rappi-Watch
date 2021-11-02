@@ -99,7 +99,6 @@ final class ServerManager: ServerManagerProtocol {
             let movieStorage = MovieStorage.shared
             let data = ResponseTopMovies(page: 1, results: movieStorage.retrieveArray(category: .popular), totalPages: 100, totalResults: 100)
             completion(data, nil)
-            print("USE LOCAL STORE")
         }
     }
     
@@ -139,7 +138,6 @@ final class ServerManager: ServerManagerProtocol {
             let movieStorage = MovieStorage.shared
             let data = ResponseTopMovies(page: 1, results: movieStorage.retrieveArray(category: .topRated), totalPages: 100, totalResults: 100)
             completion(data, nil)
-            print("USE LOCAL STORE")
         }
     }
     
@@ -179,7 +177,6 @@ final class ServerManager: ServerManagerProtocol {
             let movieStorage = MovieStorage.shared
             let data = Upcoming(dates: Dates(maximum: "", minimum: ""), page: 1, results: movieStorage.retrieveArray(category: .upcoming), totalPages: 100, totalResults: 100)
             completion(data, nil)
-            print("USE LOCAL STORE")
         }
     }
     
@@ -251,7 +248,6 @@ final class ServerManager: ServerManagerProtocol {
             let tvserieStorage = TVSerieStorage.shared
             let data = TVSerieResponse(page: 1, results: tvserieStorage.retrieveArray(category: .popular), totalPages: 100, totalResults: 100)
             completion(data, nil)
-            print("USE LOCAL STORE")
         }
     }
     
@@ -291,7 +287,6 @@ final class ServerManager: ServerManagerProtocol {
             let tvserieStorage = TVSerieStorage.shared
             let data = TVSerieResponse(page: 1, results: tvserieStorage.retrieveArray(category: .topRated), totalPages: 100, totalResults: 100)
             completion(data, nil)
-            print("USE LOCAL STORE")
         }
     }
 }

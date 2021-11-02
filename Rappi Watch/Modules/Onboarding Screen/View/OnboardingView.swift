@@ -74,16 +74,7 @@ struct OnboardingView: View {
                     
                     Spacer()
                     
-                    Button {
-                        impact(style: .heavy)
-                        
-                        if intros[getIndex()].id == intros.last?.id {
-                            action()
-                        } else {
-                            let index = min(getIndex() + 1, intros.count - 1)
-                            offset = CGFloat(index) * screenSize.width
-                        }
-                    } label:{
+                    Button(action: nextTapped) {
                         Image(systemName: "chevron.right")
                             .font(.title2.bold())
                             .foregroundColor(.white)
@@ -94,11 +85,26 @@ struct OnboardingView: View {
                             )
                             .shadow(color: Color.black.opacity(0.4), radius: 10, x: 4, y: 4)
                     }
+                    .accessibilityIdentifier("launchScreenNextButton")
                 }
                 .padding()
                 .offset(y: -20)
             }
             .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0), value: getIndex())
+        }
+    }
+    
+    // MARK: - Properties
+    
+    // MARK: - Actions
+    func nextTapped() {
+        impact(style: .heavy)
+        
+        if intros[getIndex()].id == intros.last?.id {
+            action()
+        } else {
+            let index = min(getIndex() + 1, intros.count - 1)
+            offset = CGFloat(index) * screenSize.width
         }
     }
     
@@ -108,13 +114,19 @@ struct OnboardingView: View {
         return progress * maxWidth
     }
     
-    
     func getIndex() -> Int{
         let progress = round(offset / screenSize.width)
         
         let index = min(Int(progress),intros.count - 1)
         return index
     }
+    
+    // MARK: - Subviews
+    
+    
+    
+    
+    
 }
 
 struct OnboardingView_Previews: PreviewProvider {
@@ -122,15 +134,3 @@ struct OnboardingView_Previews: PreviewProvider {
         OnboardingView(screenSize: CGSize(width: 50, height: 50), action: {})
     }
 }
-
-struct Intro: Identifiable{
-    var id = UUID().uuidString
-    var image: String
-    var title: String
-    var description: String
-}
-
-var intros: [Intro] = [
-    Intro(image: "screen_once", title: "Discover great new movies", description: "And never miss the ones one you want to watch"),
-    Intro(image: "screen_two", title: "Discover great TV series", description: "And see which one is with the best score")
-]

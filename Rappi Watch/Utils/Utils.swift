@@ -39,3 +39,18 @@ func getCardCornerRadius(bounds: GeometryProxy) -> CGFloat {
     
     return 30
 }
+
+extension String {
+    var length: Int {
+        self.count
+    }
+    var localized: String {
+        var localizedString = NSLocalizedString(self, comment: "")
+        localizedString = localizedString.replacingOccurrences(of: "%s", with: "%@")
+        localizedString = localizedString.replacingOccurrences(of: "%1$s", with: "%@")
+        localizedString = localizedString.replacingOccurrences(of: "%2$s", with: "%@")
+        localizedString = localizedString.replacingOccurrences(of: "%3$s", with: "%@")
+        localizedString = localizedString.replacingOccurrences(of: "%4$s", with: "%@")
+        return localizedString
+    }
+}
