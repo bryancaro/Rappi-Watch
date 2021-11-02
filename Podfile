@@ -7,7 +7,6 @@ target 'Rappi Watch' do
 
   # Pods for Rappi Watch
   pod 'Alamofire', '~> 5.4'
-  pod 'CodableFirebase'
   pod 'SDWebImageSwiftUI'
   pod 'lottie-ios'
   pod 'ReachabilitySwift'

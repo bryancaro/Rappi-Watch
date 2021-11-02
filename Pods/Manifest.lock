@@ -1,6 +1,5 @@
 PODS:
   - Alamofire (5.4.4)
-  - CodableFirebase (0.2.1)
   - lottie-ios (3.2.3)
   - ReachabilitySwift (5.0.0)
   - SDWebImage (5.11.1):
@@ -11,7 +10,6 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.4)
-  - CodableFirebase
   - lottie-ios
   - ReachabilitySwift
   - SDWebImageSwiftUI
@@ -19,7 +17,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
-    - CodableFirebase
     - lottie-ios
     - ReachabilitySwift
     - SDWebImage
@@ -27,12 +24,11 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
-  CodableFirebase: 0bf201991eeec35eb9fcd987d271ea463cf34a80
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageSwiftUI: 8a3923c95108312b03a599ec1498754af55a6819
 
-PODFILE CHECKSUM: 97e57676ab16c17f1eb049dce34b0395e3a73472
+PODFILE CHECKSUM: 8447bbbe2de30917ab48f557e8cc3230d3c9b730
 
 COCOAPODS: 1.11.0.rc.1
