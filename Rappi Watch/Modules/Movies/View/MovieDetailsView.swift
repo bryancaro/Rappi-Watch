@@ -39,7 +39,8 @@ struct MovieDetailsView: View {
     @Binding var active: Bool
     @Binding var activeIndex: Int
     @Binding var isScrollable: Bool
-    var bounds: GeometryProxy
+    var bodyWidth: CGFloat
+    var topInset: CGFloat
     
     // MARK: - Subviews
     var CloseButton: some View {
@@ -67,7 +68,7 @@ struct MovieDetailsView: View {
             }
             Spacer()
         }
-        .frame(maxWidth: show ? .infinity : bounds.size.width - 60)
+        .frame(maxWidth: show ? .infinity : bodyWidth - 60)
         .frame(width: screen.width, height: show ? screen.height * 0.4 : screen.width - 145)
         .background(
             WebImage(url: URL(string: "\(ConfigReader.imgBaseUrl())\(viewModel.movie.posterPath ?? "")"))
@@ -83,7 +84,7 @@ struct MovieDetailsView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: screen.width - 145)
         )
-        .clipShape(RoundedRectangle(cornerRadius: getCardCornerRadius(bounds: bounds), style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: getCardCornerRadius2(bodyWidth: bodyWidth, topInset: topInset), style: .continuous))
         .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 20)
     }
     
@@ -104,10 +105,10 @@ struct MovieDetailsView: View {
     }
 }
 
-struct MovieDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        GeometryReader { bounds in
-            MovieDetailsView(detailViewModel: MovieViewModel(), viewModel: MovieModel(movie: emptyMovie), show: .constant(true), active: .constant(true), activeIndex: .constant(-1), isScrollable: .constant(true), bounds: bounds)
-        }
-    }
-}
+//struct MovieDetailsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GeometryReader { bounds in
+//            MovieDetailsView(detailViewModel: MovieViewModel(), viewModel: MovieModel(movie: emptyMovie), show: .constant(true), active: .constant(true), activeIndex: .constant(-1), isScrollable: .constant(true), bounds: bounds)
+//        }
+//    }
+//}

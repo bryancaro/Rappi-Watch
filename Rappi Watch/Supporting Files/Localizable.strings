@@ -29,4 +29,7 @@
 "decoding_error_description" = "Sorry for the inconvenience, please contact the developer!";
 "prod_company_title" = "Production Companies";
 "prod_country_title" = "Production Countries";
-
+"filter_button_first_title" = "Popular";
+"filter_button_second_title" = "Top-Rated";
+"filter_button_third_title" = "Up-Coming";
+"beta_version" = "This is a demo application, please request the full version";

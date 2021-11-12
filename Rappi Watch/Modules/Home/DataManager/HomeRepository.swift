@@ -9,13 +9,10 @@ import Foundation
 
 protocol HomeRepositoryProtocol {
     // MARK: - Movies
-    func fetchPopularMovies(page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void)
-    func fetchTopRatedMovies(page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void)
-    func fetchUpComingMovies(page: Int, completion: @escaping(Upcoming?, ServerError?) -> Void)
+    func fetchMovies(_ filter: FilterModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void)
     
     // MARK: - TV Series
-    func fetchPopularTVSeries(page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void)
-    func fetchTopRatedTVSeries(page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void)
+    func fetchTVSeries(_ filter: FilterModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void)
 }
 
 class HomeRepository {
@@ -28,24 +25,11 @@ class HomeRepository {
 
 extension HomeRepository: HomeRepositoryProtocol {
     // MARK: - Movies
-    func fetchPopularMovies(page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void) {
-        server.fetchPopularMovies(page: page, completion: completion)
+    func fetchMovies(_ filter: FilterModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void) {
+        server.fetchMovies(filter, page: page, completion: completion)
     }
     
-    func fetchTopRatedMovies(page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void) {
-        server.fetchTopRatedMovies(page: page, completion: completion)
-    }
-    
-    func fetchUpComingMovies(page: Int, completion: @escaping(Upcoming?, ServerError?) -> Void) {
-        server.fetchUpComingMovies(page: page, completion: completion)
-    }
-    
-    // MARK: - TV Series
-    func fetchPopularTVSeries(page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void) {
-        server.fetchPopularTVSeries(page: page, completion: completion)
-    }
-    
-    func fetchTopRatedTVSeries(page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void) {
-        server.fetchTopRatedTVSeries(page: page, completion: completion)
+    func fetchTVSeries(_ filter: FilterModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void) {
+        server.fetchTVSeries(filter, page: page, completion: completion)
     }
 }

@@ -16,7 +16,8 @@ struct MovieCard: View {
     @Binding var activeView: CGSize
     @Binding var isScrollable: Bool
     
-    var bounds: GeometryProxy
+    var bodyWidth: CGFloat
+    var topInset: CGFloat
     var index: Int
     var showAlert: () -> Void
     
@@ -30,7 +31,7 @@ struct MovieCard: View {
                 VisualCard
                 
                 if isScrollable {
-                    MovieDetailsView(detailViewModel: detailViewModel, viewModel: viewModel[index], show: $viewModel[index].show, active: $active, activeIndex: $activeIndex, isScrollable: $isScrollable, bounds: bounds)
+                    MovieDetailsView(detailViewModel: detailViewModel, viewModel: viewModel[index], show: $viewModel[index].show, active: $active, activeIndex: $activeIndex, isScrollable: $isScrollable, bodyWidth: bodyWidth, topInset: topInset)
                         .background(Color.white)
                         .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
                         .animation(nil)
@@ -45,7 +46,7 @@ struct MovieCard: View {
     
     // MARK: - Properties
     var cornerRadius: Double {
-        return viewModel[index].show ? getCardCornerRadius(bounds: bounds) : 30
+        return viewModel[index].show ? getCardCornerRadius2(bodyWidth: bodyWidth, topInset: topInset) : 30
     }
     
     // MARK: - Actions
@@ -77,7 +78,7 @@ struct MovieCard: View {
         .frame(maxWidth: CGFloat(viewModel[index].show ? .infinity : screen.width - 60), maxHeight: CGFloat(viewModel[index].show ? .infinity : 280.0), alignment: .top)
         .offset(y: viewModel[index].show ? 460 : 0)
         .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: viewModel[index].show ? getCardCornerRadius(bounds: bounds) : 30, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: viewModel[index].show ? getCardCornerRadius2(bodyWidth: bodyWidth, topInset: topInset) : 30, style: .continuous))
         .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)
         .opacity(viewModel[index].show ? 1 : 0)
     }

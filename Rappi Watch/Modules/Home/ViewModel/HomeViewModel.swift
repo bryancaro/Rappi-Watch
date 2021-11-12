@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import Combine
 
 class HomeViewModel: ObservableObject {
@@ -25,188 +26,118 @@ class HomeViewModel: ObservableObject {
     @Published var actualPage: Int = 1
     @Published var totalPage: Int = 0
     
+    //
+    
+    
+    @Published var searchMovies: [MovieModel] = [MovieModel]()
+    @Published var searchTVSeries: [TVSerieModel] = [TVSerieModel]()
+    
+    @Published var showMySelf = false
+    
+    @Published var searchText = ""
+    @Published var commitSearch = ""
+    
+    @Published var active = false
+    @Published var activeIndex = -1
+    @Published var activeView = CGSize.zero
+    @Published var isScrollable = false
+    
+    @Published var bodyWidth: CGFloat = 0
+    @Published var topInset: CGFloat = 0
+    
+    @Published var filterFactory: [FilterModel] = [FilterModel]()
+    @Published var filterSelected: [FilterModel] = [FilterModel]()
+    private let manageFilters: ManageFilterFactory
+    
+    //
+    
     private let reachability = ReachabilityManager()
     private let repository: HomeRepositoryProtocol
-    init(repository: HomeRepositoryProtocol = HomeRepository()) {
+    init(repository: HomeRepositoryProtocol = HomeRepository(), manageFilters: ManageFilterFactory = ManageFilterFactory()) {
         self.repository = repository
+        self.manageFilters = manageFilters
     }
     
-    // MARK: - Fetch More
-    func fetchMore() {
-        switch activeType {
-        case .movies:
-            switch activeCategory {
-            case .popular:
-                fetchMorePopularMovies()
-            case .topRated:
-                fetchMoreTopRatedMovies()
-            case .upcoming:
-                fetchMoreUpComingMovies()
+    // MARK: - Get Filters Manager
+    func configureFilter() {
+        getFilters {
+            ManageFilterFactory.provideFilters()
+        }
+    }
+    
+    func getFilters(data: () -> [FilterModel]) {
+        self.filterFactory = data()
+        self.filterSelected.append(filterFactory[0])
+    }
+    
+    func filterTapped(_ selected: FilterModel) {
+        if filterSelected.contains(where: { $0.id == selected.id}) {
+            switch activeType {
+            case .movies:
+                fetchMovies(selected)
+            case .tvSeries:
+                fetchTVSeries(selected)
             }
-            
-        case .tvSeries:
-            switch activeCategory {
-            case .popular:
-                fetchMorePopularTVSeries()
-            case .topRated:
-                fetchMoreTopRatedTVSeries()
-            case .upcoming:
-                haptic(type: .warning)
+        } else {
+            filterSelected.removeAll()
+            filterSelected.append(selected)
+            switch activeType {
+            case .movies:
+                fetchMovies(selected)
+            case .tvSeries:
+                fetchTVSeries(selected)
             }
         }
     }
     
     // MARK: - Movies
-    func fetchPopularMovies() {
+    func fetchMovies(_ filter: FilterModel) {
         isLoading = true
         actualPage = 1
         totalPage = 0
-        repository.fetchPopularMovies(page: actualPage, completion: { popularMovies, error in
+        repository.fetchMovies(filter, page: actualPage) { [weak self] result, error in
             if let error = error {
                 haptic(type: .error)
                 dismissLoadingView {
-                    self.isLoading = false
-                    self.appError = AppError(errorString: error.localizedDescription)
+                    self?.isLoading = false
+                    self?.appError = AppError(errorString: error.localizedDescription)
                 }
                 return
             }
             
-            guard let popularMovies = popularMovies else { return }
-            self.actualPage = popularMovies.page
-            self.totalPage = popularMovies.totalPages
-            self.movies = popularMovies.results.map({ MovieModel(movie: $0)})
+            guard let result = result else { return }
+            self?.actualPage = result.page
+            self?.totalPage = result.totalPages
+            self?.movies = result.results.map({ MovieModel(movie: $0)})
             
             dismissLoadingView {
-                self.isLoading = false
+                self?.isLoading = false
             }
-        })
-    }
-    
-    func fetchMorePopularMovies() {
-        if reachability.isConnected() {
-            if actualPage >= totalPage {
-                haptic(type: .warning)
-            } else {
-                actualPage += 1
-                repository.fetchPopularMovies(page: actualPage, completion: { popularMovies, error in
-                    if let error = error {
-                        haptic(type: .error)
-                        dismissLoadingView {
-                            self.appError = AppError(errorString: error.localizedDescription)
-                        }
-                        return
-                    }
-                    
-                    guard let popularMovies = popularMovies else { return }
-                    self.actualPage = popularMovies.page
-                    self.totalPage = popularMovies.totalPages
-                    self.movies += popularMovies.results.map({ MovieModel(movie: $0)})
-                    haptic(type: .success)
-                })
-            }
-        } else {
-            haptic(type: .warning)
         }
     }
     
-    func fetchTopRatedMovies() {
-        isLoading = true
-        actualPage = 1
-        totalPage = 0
-        repository.fetchTopRatedMovies(page: actualPage, completion: { topRatedMovies, error in
-            if let error = error {
-                haptic(type: .error)
-                dismissLoadingView {
-                    self.isLoading = false
-                    self.appError = AppError(errorString: error.localizedDescription)
-                }
-                return
-            }
-            
-            guard let topRatedMovies = topRatedMovies else { return }
-            self.actualPage = topRatedMovies.page
-            self.totalPage = topRatedMovies.totalPages
-            self.movies = topRatedMovies.results.map({ MovieModel(movie: $0)})
-            
-            dismissLoadingView {
-                self.isLoading = false
-            }
-        })
-    }
-    
-    func fetchMoreTopRatedMovies() {
+    func fetchMoreMovies() {
         if reachability.isConnected() {
             if actualPage >= totalPage {
                 haptic(type: .warning)
             } else {
                 actualPage += 1
-                repository.fetchTopRatedMovies(page: actualPage, completion: { topRatedMovies, error in
+                repository.fetchMovies(filterSelected[0], page: actualPage) { [weak self] result, error in
                     if let error = error {
                         haptic(type: .error)
                         dismissLoadingView {
-                            self.appError = AppError(errorString: error.localizedDescription)
+                            self?.isLoading = false
+                            self?.appError = AppError(errorString: error.localizedDescription)
                         }
                         return
                     }
                     
-                    guard let topRatedMovies = topRatedMovies else { return }
-                    self.actualPage = topRatedMovies.page
-                    self.totalPage = topRatedMovies.totalPages
-                    self.movies += topRatedMovies.results.map({ MovieModel(movie: $0)})
+                    guard let result = result else { return }
+                    self?.actualPage = result.page
+                    self?.totalPage = result.totalPages
+                    self?.movies += result.results.map({ MovieModel(movie: $0)})
                     haptic(type: .success)
-                })
-            }
-        } else {
-            haptic(type: .warning)
-        }
-    }
-    
-    func fetchUpComingMovies() {
-        isLoading = true
-        actualPage = 1
-        totalPage = 0
-        repository.fetchUpComingMovies(page: actualPage, completion: { upComingMovies, error in
-            if let error = error {
-                haptic(type: .error)
-                dismissLoadingView {
-                    self.isLoading = false
-                    self.appError = AppError(errorString: error.localizedDescription)
                 }
-                return
-            }
-            
-            guard let upComingMovies = upComingMovies else { return }
-            self.actualPage = upComingMovies.page
-            self.totalPage = upComingMovies.totalPages
-            
-            dismissLoadingView {
-                self.movies = upComingMovies.results.map({ MovieModel(movie: $0)})
-                self.isLoading = false
-            }
-        })
-    }
-    
-    func fetchMoreUpComingMovies() {
-        if reachability.isConnected() {
-            if actualPage >= totalPage {
-                haptic(type: .warning)
-            } else {
-                actualPage += 1
-                repository.fetchUpComingMovies(page: actualPage, completion: { upComingMovies, error in
-                    if let error = error {
-                        haptic(type: .error)
-                        dismissLoadingView {
-                            self.appError = AppError(errorString: error.localizedDescription)
-                        }
-                        return
-                    }
-                    
-                    guard let upComingMovies = upComingMovies else { return }
-                    self.actualPage = upComingMovies.page
-                    self.totalPage = upComingMovies.totalPages
-                    self.movies += upComingMovies.results.map({ MovieModel(movie: $0)})
-                    haptic(type: .success)
-                })
             }
         } else {
             haptic(type: .warning)
@@ -214,101 +145,62 @@ class HomeViewModel: ObservableObject {
     }
     
     // MARK: - TV Series
-    func fetchPopularTVSeries() {
+    func fetchTVSeries(_ filter: FilterModel) {
         isLoading = true
-        repository.fetchPopularTVSeries(page: actualPage) { popular, error in
+        actualPage = 1
+        totalPage = 0
+        repository.fetchTVSeries(filter, page: actualPage) { [weak self] result, error in
             if let error = error {
                 haptic(type: .error)
                 dismissLoadingView {
-                    self.isLoading = false
-                    self.appError = AppError(errorString: error.localizedDescription)
+                    self?.isLoading = false
+                    self?.appError = AppError(errorString: error.localizedDescription)
+                    self?.series.removeAll()
                 }
                 return
             }
             
-            guard let popular = popular else { return }
-            self.series = popular.results.map({ TVSerieModel(serie: $0)})
+            guard let result = result else { return }
+            self?.actualPage = result.page
+            self?.totalPage = result.totalPages
+            self?.series = result.results.map({ TVSerieModel(serie: $0)})
             
             dismissLoadingView {
-                self.isLoading = false
+                self?.isLoading = false
             }
         }
     }
     
-    func fetchMorePopularTVSeries() {
+    func fetchMoreTVSeries() {
         if reachability.isConnected() {
             if actualPage >= totalPage {
                 haptic(type: .warning)
             } else {
                 actualPage += 1
-                repository.fetchPopularTVSeries(page: actualPage, completion: { popular, error in
+                
+                repository.fetchTVSeries(filterSelected[0], page: actualPage) { [weak self] result, error in
                     if let error = error {
                         haptic(type: .error)
                         dismissLoadingView {
-                            self.appError = AppError(errorString: error.localizedDescription)
+                            self?.isLoading = false
+                            self?.appError = AppError(errorString: error.localizedDescription)
+                            self?.series.removeAll()
                         }
                         return
                     }
                     
-                    guard let popular = popular else { return }
-                    self.actualPage = popular.page
-                    self.totalPage = popular.totalPages
-                    self.series += popular.results.map({ TVSerieModel(serie: $0)})
+                    guard let result = result else { return }
+                    self?.actualPage = result.page
+                    self?.totalPage = result.totalPages
+                    self?.series += result.results.map({ TVSerieModel(serie: $0)})
                     haptic(type: .success)
-                })
+                }
             }
         } else {
             haptic(type: .warning)
         }
     }
     
-    func fetchTopRatedTVSeries() {
-        isLoading = true
-        repository.fetchTopRatedTVSeries(page: actualPage) { popular, error in
-            if let error = error {
-                haptic(type: .error)
-                dismissLoadingView {
-                    self.isLoading = false
-                    self.appError = AppError(errorString: error.localizedDescription)
-                }
-                return
-            }
-            
-            guard let popular = popular else { return }
-            self.series = popular.results.map({ TVSerieModel(serie: $0)})
-            
-            dismissLoadingView {
-                self.isLoading = false
-            }
-        }
-    }
-    
-    func fetchMoreTopRatedTVSeries() {
-        if reachability.isConnected() {
-            if actualPage >= totalPage {
-                haptic(type: .warning)
-            } else {
-                actualPage += 1
-                repository.fetchTopRatedTVSeries(page: actualPage, completion: { popular, error in
-                    if let error = error {
-                        haptic(type: .error)
-                        dismissLoadingView {
-                            self.appError = AppError(errorString: error.localizedDescription)
-                        }
-                        return
-                    }
-                    
-                    guard let popular = popular else { return }
-                    self.actualPage = popular.page
-                    self.totalPage = popular.totalPages
-                    self.series += popular.results.map({ TVSerieModel(serie: $0)})
-                    haptic(type: .success)
-                })
-            }
-        } else {
-            haptic(type: .warning)
-        }
-    }
     
     func showAlert(mssg: String) {
         appError = AppError(errorString: mssg)
@@ -359,23 +251,3 @@ enum SideButtonTypeState: CustomStringConvertible {
     }
 }
 
-enum SideButtonCategoryState: CustomStringConvertible {
-    case popular
-    case topRated
-    case upcoming
-    
-    init() {
-        self = .popular
-    }
-    
-    var description: String {
-        switch self {
-        case .popular:
-            return "Popular"
-        case .topRated:
-            return "Top-Rated"
-        case .upcoming:
-            return "Up-Coming"
-        }
-    }
-}

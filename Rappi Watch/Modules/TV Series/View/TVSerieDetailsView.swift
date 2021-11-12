@@ -39,7 +39,8 @@ struct TVSerieDetailsView: View {
     @Binding var active: Bool
     @Binding var activeIndex: Int
     @Binding var isScrollable: Bool
-    var bounds: GeometryProxy
+    var bodyWidth: CGFloat
+    var topInset: CGFloat
     
     // MARK: - Actions
     
@@ -69,7 +70,7 @@ struct TVSerieDetailsView: View {
             }
             Spacer()
         }
-        .frame(maxWidth: show ? .infinity : bounds.size.width - 60)
+        .frame(maxWidth: show ? .infinity : bodyWidth - 60)
         .frame(width: screen.width, height: show ? screen.height * 0.4 : screen.width - 145)
         .background(
             WebImage(url: URL(string: viewModel.poster_path))
@@ -85,7 +86,7 @@ struct TVSerieDetailsView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: screen.width - 145)
         )
-        .clipShape(RoundedRectangle(cornerRadius: getCardCornerRadius(bounds: bounds), style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: getCardCornerRadius2(bodyWidth: bodyWidth, topInset: topInset), style: .continuous))
         .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 20)
     }
     
@@ -149,11 +150,9 @@ struct TVSerieDetailsView: View {
     }
 }
 
-struct TVSeriesView_Previews: PreviewProvider {
+struct TVSerieDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        GeometryReader { bounds in
-            TVSerieDetailsView(detailViewModel: TVSerieViewModel(), viewModel: TVSerieModel(serie: emptyTVSerie), show: .constant(true), active: .constant(true), activeIndex: .constant(-1), isScrollable: .constant(true), bounds: bounds)
-        }
+        TVSerieDetailsView(detailViewModel: TVSerieViewModel(), viewModel: TVSerieModel(serie: emptyTVSerie), show: .constant(true), active: .constant(true), activeIndex: .constant(-1), isScrollable: .constant(true), bodyWidth: 0, topInset: 0)
     }
 }
 

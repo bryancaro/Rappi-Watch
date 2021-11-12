@@ -10,15 +10,12 @@ import Alamofire
 
 protocol ServerManagerProtocol {
     // MARK: - Movies
+    func fetchMovies(_ filter: FilterModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void)
     func fetchMovieDetail(id: Int, completion: @escaping(MovieDetail?, ServerError?) -> Void)
-    func fetchPopularMovies(page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void)
-    func fetchTopRatedMovies(page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void)
-    func fetchUpComingMovies(page: Int, completion: @escaping(Upcoming?, ServerError?) -> Void)
     
     // MARK: - TV Series
+    func fetchTVSeries(_ filter: FilterModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void)
     func fetchTVSerieDetail(id: Int, completion: @escaping(TVSerieDetail?, ServerError?) -> Void)
-    func fetchPopularTVSeries(page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void)
-    func fetchTopRatedTVSeries(page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void)
 }
 
 struct MovieQuery: Encodable, Decodable, Hashable {
@@ -31,6 +28,45 @@ final class ServerManager: ServerManagerProtocol {
     // MARK: - Properties
     private let reachability = ReachabilityManager()
     // MARK: - Movies
+    func fetchMovies(_ filter: FilterModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void) {
+        let url = "\(ConfigReader.baseUrl())/movie\(filter.filter.endpoint)"
+        
+        let parameters = MovieQuery(
+            api_key: ConfigReader.apiKey(),
+            language: "en-US",
+            page: page
+        )
+        
+        if reachability.isConnected() {
+            AF.request(
+                url,
+                parameters: parameters
+            )
+                .validate()
+                .responseJSON { response in
+                    switch response.result {
+                    case .success:
+                        guard let data = response.data else { return }
+                        do {
+                            let data = try JSONDecoder().decode(ResponseTopMovies.self, from: data)
+                            self.saveMoviesData(filter, data: data)
+                            completion(data, nil)
+                        } catch let error {
+                            print(error.localizedDescription)
+                            completion(nil, .decodingError)
+                        }
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                        completion(nil, .serverError)
+                    }
+                }
+        } else {
+            retrieveMoviesData(filter, completion: { data in
+                completion(data, nil)
+            })
+        }
+    }
+    
     func fetchMovieDetail(id: Int, completion: @escaping(MovieDetail?, ServerError?) -> Void) {
         let url = "\(ConfigReader.baseUrl())/movie/\(id)"
         
@@ -62,124 +98,46 @@ final class ServerManager: ServerManagerProtocol {
             }
     }
     
-    func fetchPopularMovies(page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void) {
-        let url = "\(ConfigReader.baseUrl())/movie/popular"
-        
-        let parameters = MovieQuery(
-            api_key: ConfigReader.apiKey(),
-            language: "en-US",
-            page: page
-        )
-        
-        if reachability.isConnected() {
-            AF.request(
-                url,
-                parameters: parameters
-            )
-                .validate()
-                .responseJSON { response in
-                    switch response.result {
-                    case .success:
-                        guard let data = response.data else { return }
-                        do {
-                            let data = try JSONDecoder().decode(ResponseTopMovies.self, from: data)
-                            MovieStorage.shared.saveAllOnDisk(movies: data.results, category: .popular)
-                            completion(data, nil)
-                        } catch let error {
-                            print(error.localizedDescription)
-                            completion(nil, .decodingError)
-                        }
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        completion(nil, .serverError)
-                    }
-                }
-        } else {
-            let movieStorage = MovieStorage.shared
-            let data = ResponseTopMovies(page: 1, results: movieStorage.retrieveArray(category: .popular), totalPages: 100, totalResults: 100)
-            completion(data, nil)
-        }
-    }
-    
-    func fetchTopRatedMovies(page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void) {
-        let url = "\(ConfigReader.baseUrl())/movie/top_rated"
-        
-        let parameters = MovieQuery(
-            api_key: ConfigReader.apiKey(),
-            language: "en-US",
-            page: page
-        )
-        
-        if reachability.isConnected() {
-            AF.request(
-                url,
-                parameters: parameters
-            )
-                .validate()
-                .responseJSON { response in
-                    switch response.result {
-                    case .success:
-                        guard let data = response.data else { return }
-                        do {
-                            let data = try JSONDecoder().decode(ResponseTopMovies.self, from: data)
-                            MovieStorage.shared.saveAllOnDisk(movies: data.results, category: .topRated)
-                            completion(data, nil)
-                        } catch let error {
-                            print(error.localizedDescription)
-                            completion(nil, .decodingError)
-                        }
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        completion(nil, .serverError)
-                    }
-                }
-        } else {
-            let movieStorage = MovieStorage.shared
-            let data = ResponseTopMovies(page: 1, results: movieStorage.retrieveArray(category: .topRated), totalPages: 100, totalResults: 100)
-            completion(data, nil)
-        }
-    }
-    
-    func fetchUpComingMovies(page: Int, completion: @escaping(Upcoming?, ServerError?) -> Void) {
-        let url = "\(ConfigReader.baseUrl())/movie/upcoming"
-        
-        let parameters = MovieQuery(
-            api_key: ConfigReader.apiKey(),
-            language: "en-US",
-            page: page
-        )
-        
-        if reachability.isConnected() {
-            AF.request(
-                url,
-                parameters: parameters
-            )
-                .validate()
-                .responseJSON { response in
-                    switch response.result {
-                    case .success(_):
-                        guard let data = response.data else { return }
-                        do {
-                            let data = try JSONDecoder().decode(Upcoming.self, from: data)
-                            MovieStorage.shared.saveAllOnDisk(movies: data.results, category: .upcoming)
-                            completion(data, nil)
-                        } catch let error {
-                            print(error.localizedDescription)
-                            completion(nil, .decodingError)
-                        }
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        completion(nil, .serverError)
-                    }
-                }
-        } else {
-            let movieStorage = MovieStorage.shared
-            let data = Upcoming(dates: Dates(maximum: "", minimum: ""), page: 1, results: movieStorage.retrieveArray(category: .upcoming), totalPages: 100, totalResults: 100)
-            completion(data, nil)
-        }
-    }
-    
     // MARK: - TV Series
+    func fetchTVSeries(_ filter: FilterModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void) {
+        let url = "\(ConfigReader.baseUrl())/tv\(filter.filter.endpoint)"
+        
+        let parameters = MovieQuery(
+            api_key: ConfigReader.apiKey(),
+            language: "en-US",
+            page: page
+        )
+        
+        if reachability.isConnected() {
+            AF.request(
+                url,
+                parameters: parameters
+            )
+                .validate()
+                .responseJSON { response in
+                    switch response.result {
+                    case .success:
+                        guard let data = response.data else { return }
+                        do {
+                            let data = try JSONDecoder().decode(TVSerieResponse.self, from: data)
+                            self.saveTVSeriesData(filter, data: data)
+                            completion(data, nil)
+                        } catch let error {
+                            print(error.localizedDescription)
+                            completion(nil, .decodingError)
+                        }
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                        completion(nil, .serverError)
+                    }
+                }
+        } else {
+            retrieveTVSeriesData(filter, completion: { data in
+                completion(data, nil)
+            })
+        }
+    }
+    
     func fetchTVSerieDetail(id: Int, completion: @escaping(TVSerieDetail?, ServerError?) -> Void) {
         let url = "\(ConfigReader.baseUrl())/tv/\(id)"
         
@@ -211,81 +169,58 @@ final class ServerManager: ServerManagerProtocol {
             }
     }
     
-    func fetchPopularTVSeries(page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void) {
-        let url = "\(ConfigReader.baseUrl())/tv/popular"
-        
-        let parameters = MovieQuery(
-            api_key: ConfigReader.apiKey(),
-            language: "en-US",
-            page: page
-        )
-        
-        if reachability.isConnected() {
-            AF.request(
-                url,
-                parameters: parameters
-            )
-                .validate()
-                .responseJSON { response in
-                    switch response.result {
-                    case .success:
-                        guard let data = response.data else { return }
-                        do {
-                            let data = try JSONDecoder().decode(TVSerieResponse.self, from: data)
-                            TVSerieStorage.shared.saveAllOnDisk(movies: data.results, category: .popular)
-                            completion(data, nil)
-                        } catch let error {
-                            print(error.localizedDescription)
-                            completion(nil, .decodingError)
-                        }
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        completion(nil, .serverError)
-                    }
-                }
-        } else {
-            let tvserieStorage = TVSerieStorage.shared
-            let data = TVSerieResponse(page: 1, results: tvserieStorage.retrieveArray(category: .popular), totalPages: 100, totalResults: 100)
-            completion(data, nil)
+    // MARK: - Local Storage
+    func saveMoviesData(_ filter: FilterModel, data: ResponseTopMovies) {
+        switch filter.filter.type {
+        case .popular:
+            MovieStorage.shared.saveAllOnDisk(movies: data.results, category: .popular)
+        case .topRated:
+            MovieStorage.shared.saveAllOnDisk(movies: data.results, category: .topRated)
+        case .upcoming:
+            MovieStorage.shared.saveAllOnDisk(movies: data.results, category: .upcoming)
         }
     }
     
-    func fetchTopRatedTVSeries(page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void) {
-        let url = "\(ConfigReader.baseUrl())/tv/top_rated"
+    func retrieveMoviesData(_ filter: FilterModel, completion: @escaping(ResponseTopMovies?) -> Void) {
+        let movieStorage = MovieStorage.shared
         
-        let parameters = MovieQuery(
-            api_key: ConfigReader.apiKey(),
-            language: "en-US",
-            page: page
-        )
+        switch filter.filter.type {
+        case .popular:
+            let data = ResponseTopMovies(page: 1, results: movieStorage.retrieveArray(category: .popular), totalPages: 100, totalResults: 100)
+            completion(data)
+        case .topRated:
+            let data = ResponseTopMovies(page: 1, results: movieStorage.retrieveArray(category: .topRated), totalPages: 100, totalResults: 100)
+            completion(data)
+        case .upcoming:
+            let data = ResponseTopMovies(page: 1, results: movieStorage.retrieveArray(category: .upcoming), totalPages: 100, totalResults: 100)
+            completion(data)
+        }
+    }
+    
+    func saveTVSeriesData(_ filter: FilterModel, data: TVSerieResponse) {
+        switch filter.filter.type {
+        case .popular:
+            TVSerieStorage.shared.saveAllOnDisk(movies: data.results, category: .popular)
+        case .topRated:
+            TVSerieStorage.shared.saveAllOnDisk(movies: data.results, category: .topRated)
+        case .upcoming:
+            TVSerieStorage.shared.saveAllOnDisk(movies: data.results, category: .upcoming)
+        }
+    }
+    
+    func retrieveTVSeriesData(_ filter: FilterModel, completion: @escaping(TVSerieResponse?) -> Void) {
+        let tvserieStorage = TVSerieStorage.shared
         
-        if reachability.isConnected() {
-            AF.request(
-                url,
-                parameters: parameters
-            )
-                .validate()
-                .responseJSON { response in
-                    switch response.result {
-                    case .success:
-                        guard let data = response.data else { return }
-                        do {
-                            let data = try JSONDecoder().decode(TVSerieResponse.self, from: data)
-                            TVSerieStorage.shared.saveAllOnDisk(movies: data.results, category: .topRated)
-                            completion(data, nil)
-                        } catch let error {
-                            print(error.localizedDescription)
-                            completion(nil, .decodingError)
-                        }
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        completion(nil, .serverError)
-                    }
-                }
-        } else {
-            let tvserieStorage = TVSerieStorage.shared
+        switch filter.filter.type {
+        case .popular:
+            let data = TVSerieResponse(page: 1, results: tvserieStorage.retrieveArray(category: .popular), totalPages: 100, totalResults: 100)
+            completion(data)
+        case .topRated:
             let data = TVSerieResponse(page: 1, results: tvserieStorage.retrieveArray(category: .topRated), totalPages: 100, totalResults: 100)
-            completion(data, nil)
+            completion(data)
+        case .upcoming:
+            let data = TVSerieResponse(page: 1, results: tvserieStorage.retrieveArray(category: .upcoming), totalPages: 100, totalResults: 100)
+            completion(data)
         }
     }
 }

@@ -46,10 +46,10 @@ struct CustomButtonType_Previews: PreviewProvider {
 }
 
 struct CustomButtonCategory: View {
-    @Binding var get: SideButtonCategoryState
-    var set: SideButtonCategoryState
+    @Binding var selected: [FilterModel]
+    var id: String
     var image: String
-    var action: (SideButtonCategoryState) -> Void
+    var action: () -> Void
     
     var body: some View {
         Button(action: buttonTapped, label: {
@@ -67,12 +67,12 @@ struct CustomButtonCategory: View {
     
     // MARK: - Properties
     var foregroundColor: Color {
-        return get == set ? .red : .black
+        return selected.contains(where: { $0.id == id}) ? .red : .black
     }
     
     // MARK: - Action
     func buttonTapped() {
         impact(style: .medium)
-        action(set)
+        action()
     }
 }

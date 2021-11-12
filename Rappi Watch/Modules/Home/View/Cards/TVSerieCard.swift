@@ -16,7 +16,8 @@ struct TVSerieCard: View {
     @Binding var activeView: CGSize
     @Binding var isScrollable: Bool
     
-    var bounds: GeometryProxy
+    var bodyWidth: CGFloat
+    var topInset: CGFloat
     var index: Int
     var showAlert: () -> Void
     
@@ -30,7 +31,7 @@ struct TVSerieCard: View {
                 VisualCard
                 
                 if isScrollable {
-                    TVSerieDetailsView(detailViewModel: detailViewModel, viewModel: viewModel[index], show: $viewModel[index].show, active: $active, activeIndex: $activeIndex, isScrollable: $isScrollable, bounds: bounds)
+                    TVSerieDetailsView(detailViewModel: detailViewModel, viewModel: viewModel[index], show: $viewModel[index].show, active: $active, activeIndex: $activeIndex, isScrollable: $isScrollable, bodyWidth: bodyWidth, topInset: topInset)
                         .background(Color.white)
                         .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
                         .animation(nil)
@@ -45,7 +46,7 @@ struct TVSerieCard: View {
     
     // MARK: - Properties
     var cornerRadius: Double {
-        return viewModel[index].show ? getCardCornerRadius(bounds: bounds) : 30
+        return viewModel[index].show ? getCardCornerRadius2(bodyWidth: bodyWidth, topInset: topInset) : 30
     }
     
     // MARK: - Actions
@@ -77,7 +78,7 @@ struct TVSerieCard: View {
         .frame(maxWidth: CGFloat(viewModel[index].show ? .infinity : screen.width - 60), maxHeight: CGFloat(viewModel[index].show ? .infinity : 280.0), alignment: .top)
         .offset(y: viewModel[index].show ? 460 : 0)
         .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: viewModel[index].show ? getCardCornerRadius(bounds: bounds) : 30, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: viewModel[index].show ? getCardCornerRadius2(bodyWidth: bodyWidth, topInset: topInset) : 30, style: .continuous))
         .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)
         .opacity(viewModel[index].show ? 1 : 0)
     }
@@ -132,8 +133,6 @@ struct TVSerieCard: View {
 
 struct TVSerieCard_Previews: PreviewProvider {
     static var previews: some View {
-        GeometryReader { bounds in
-            TVSerieCard(viewModel: .constant([TVSerieModel(serie: emptyTVSerie)]), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bounds: bounds, index: 0, showAlert: {})
-        }
+        TVSerieCard(viewModel: .constant([TVSerieModel(serie: emptyTVSerie)]), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bodyWidth: 0, topInset: 0, index: 0, showAlert: {})
     }
 }

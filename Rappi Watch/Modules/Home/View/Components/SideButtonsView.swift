@@ -27,11 +27,14 @@ struct SideButtonsView: View {
                 .bold()
                 .padding(.top)
             
-            CustomButtonCategory(get: $viewModel.activeCategory, set: .popular, image: "heart.fill", action: categoryAction)
-            
-            CustomButtonCategory(get: $viewModel.activeCategory, set: .topRated, image: "flame.fill", action: categoryAction)
-            
-            CustomButtonCategory(get: $viewModel.activeCategory, set: .upcoming, image: "calendar.badge.clock", action: categoryAction)
+            if !viewModel.filterFactory.isEmpty {
+                ForEach(viewModel.filterFactory.indices) { index in
+                    CustomButtonCategory(selected: $viewModel.filterSelected,
+                                         id: viewModel.filterFactory[index].id,
+                                         image: viewModel.filterFactory[index].filter.image,
+                                         action: { categoryTapped(viewModel.filterFactory[index]) })
+                }
+            }
         }
         .frame(maxWidth: 100)
     }
@@ -39,43 +42,47 @@ struct SideButtonsView: View {
     // MARK: - Actions
     func typeAction(select: SideButtonTypeState) {
         viewModel.activeType = select
-        categoryAction(selet: viewModel.activeCategory)
+        viewModel.filterTapped(viewModel.filterSelected[0])
     }
     
-    func categoryAction(selet: SideButtonCategoryState) {
-        viewModel.activeCategory = selet
-        
-        switch selet {
-        case .popular:
-            switch viewModel.activeType {
-            case .movies:
-                viewModel.fetchPopularMovies()
-            case .tvSeries:
-                viewModel.fetchPopularTVSeries()
-            }
-            
-        case .topRated:
-            switch viewModel.activeType {
-            case .movies:
-                viewModel.fetchTopRatedMovies()
-            case .tvSeries:
-                viewModel.fetchTopRatedTVSeries()
-            }
-            
-        case .upcoming:
-            switch viewModel.activeType {
-            case .movies:
-                viewModel.fetchUpComingMovies()
-            case .tvSeries:
-                viewModel.isLoading = true
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.viewModel.series.removeAll()
-                    self.viewModel.isLoading = false
-                }
-            }
-        }
+    func categoryTapped(_ selected: FilterModel) {
+        viewModel.filterTapped(selected)
     }
+    
+//    func categoryAction(selet: SideButtonCategoryState) {
+//        viewModel.activeCategory = selet
+//
+//        switch selet {
+//        case .popular:
+//            switch viewModel.activeType {
+//            case .movies:
+//                viewModel.fetchPopularMovies()
+//            case .tvSeries:
+//                viewModel.fetchPopularTVSeries()
+//            }
+//
+//        case .topRated:
+//            switch viewModel.activeType {
+//            case .movies:
+//                viewModel.fetchTopRatedMovies()
+//            case .tvSeries:
+//                viewModel.fetchTopRatedTVSeries()
+//            }
+//
+//        case .upcoming:
+//            switch viewModel.activeType {
+//            case .movies:
+//                viewModel.fetchUpComingMovies()
+//            case .tvSeries:
+//                viewModel.isLoading = true
+//
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                    self.viewModel.series.removeAll()
+//                    self.viewModel.isLoading = false
+//                }
+//            }
+//        }
+//    }
 }
 
 struct SideButtonsView_Previews: PreviewProvider {
