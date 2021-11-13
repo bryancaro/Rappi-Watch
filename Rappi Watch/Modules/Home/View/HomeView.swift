@@ -65,6 +65,10 @@ struct HomeView: View {
                     }
                 }
             }
+            .onChange(of: viewModel.searchText) {
+                print($0)
+                searchBox()
+            }
             .sheet(isPresented: $viewModel.showMySelf, content: {
                 MeView(action: hideAppPresent)
             })
@@ -76,8 +80,7 @@ struct HomeView: View {
     
     // MARK: - Actions
     func onAppear() {
-        viewModel.configureFilter()
-        viewModel.fetchMovies(viewModel.filterSelected[0])
+        viewModel.configureCategories()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             viewModel.showMySelf = true
         }
@@ -90,16 +93,20 @@ struct HomeView: View {
     
     func onEditingChanged(changed: Bool) {}
     
-    func onCommit() {
-        viewModel.commitSearch = viewModel.searchText
+    func searchBox() {
+        viewModel.commitSearch = viewModel.searchText.lowercased()
         
-        switch viewModel.activeType {
+        switch viewModel.categoriesSelected[0].category.active {
         case .movies:
-            viewModel.searchMovies = viewModel.movies.filter({$0.movie.title.contains(viewModel.searchText)})
-        case .tvSeries:
-            viewModel.searchTVSeries = viewModel.series.filter({$0.serie.name.contains(viewModel.searchText)})
+            viewModel.searchMovies = viewModel.movies.filter({$0.movie.title.lowercased().contains(viewModel.searchText.lowercased())})
+        case .tvshow:
+            viewModel.searchTVSeries = viewModel.series.filter({$0.serie.name.lowercased().contains(viewModel.searchText.lowercased())})
+        case .people:
+            viewModel.searchPeople = viewModel.people.filter({$0.people.name.lowercased().contains(viewModel.searchText.lowercased())})
         }
     }
+    
+    func onCommit() {}
 }
 
 struct HomeView_Previews: PreviewProvider {

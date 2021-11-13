@@ -17,6 +17,10 @@ class MovieStorage {
     private let fileManager: FileManager
     private let documentsURL: URL
     
+    private let keyPopular = "filter_button_first_title".localized
+    private let keyTopRated = "filter_button_second_title".localized
+    private let keyUpcoming = "filter_button_third_title".localized
+    
     func directoryExistsAtPath(_ path: String) -> Bool {
         var isDirectory = ObjCBool(true)
         let exists = fileManager.fileExists(atPath: path, isDirectory: &isDirectory)
@@ -34,8 +38,8 @@ class MovieStorage {
         self.topRatedMovies = [Movie]()
         self.upcomingMovies = [Movie]()
         
-        if directoryExistsAtPath(documentsURL.appendingPathComponent("Popular").path) {
-            moviesFilesURLs = try! fileManager.contentsOfDirectory(at: documentsURL.appendingPathComponent("Popular"), includingPropertiesForKeys: nil)
+        if directoryExistsAtPath(documentsURL.appendingPathComponent(keyPopular).path) {
+            moviesFilesURLs = try! fileManager.contentsOfDirectory(at: documentsURL.appendingPathComponent(keyPopular), includingPropertiesForKeys: nil)
             
             
             popularMovies = moviesFilesURLs.compactMap { url -> Movie? in
@@ -48,11 +52,11 @@ class MovieStorage {
                 return try? jsonDecoder.decode(Movie.self, from: data)
             }.sorted(by: { $0.popularity > $1.popularity })
         } else {
-            try? fileManager.createDirectory(at: documentsURL.appendingPathComponent("Popular"), withIntermediateDirectories: false, attributes: nil)
+            try? fileManager.createDirectory(at: documentsURL.appendingPathComponent(keyPopular), withIntermediateDirectories: false, attributes: nil)
         }
         
-        if directoryExistsAtPath(documentsURL.appendingPathComponent("Top-Rated").path) {
-            moviesFilesURLs = try! fileManager.contentsOfDirectory(at: documentsURL.appendingPathComponent("Popular"), includingPropertiesForKeys: nil)
+        if directoryExistsAtPath(documentsURL.appendingPathComponent(keyTopRated).path) {
+            moviesFilesURLs = try! fileManager.contentsOfDirectory(at: documentsURL.appendingPathComponent(keyTopRated), includingPropertiesForKeys: nil)
             
             topRatedMovies = moviesFilesURLs.compactMap { url -> Movie? in
                 guard !url.absoluteString.contains(".DS_Store") else {
@@ -65,11 +69,11 @@ class MovieStorage {
             }.sorted(by: { $0.voteAverage > $1.voteAverage })
         }
         else{
-            try? fileManager.createDirectory(at: documentsURL.appendingPathComponent("Top-Rated"), withIntermediateDirectories: false, attributes: nil)
+            try? fileManager.createDirectory(at: documentsURL.appendingPathComponent(keyTopRated), withIntermediateDirectories: false, attributes: nil)
         }
         
-        if directoryExistsAtPath(documentsURL.appendingPathComponent("Up-Coming").path) {
-            moviesFilesURLs = try! fileManager.contentsOfDirectory(at: documentsURL.appendingPathComponent("Up-Coming"), includingPropertiesForKeys: nil)
+        if directoryExistsAtPath(documentsURL.appendingPathComponent(keyUpcoming).path) {
+            moviesFilesURLs = try! fileManager.contentsOfDirectory(at: documentsURL.appendingPathComponent(keyUpcoming), includingPropertiesForKeys: nil)
             upcomingMovies = moviesFilesURLs.compactMap { url -> Movie? in
                 guard !url.absoluteString.contains(".DS_Store") else {
                     return nil
@@ -81,25 +85,26 @@ class MovieStorage {
             }.sorted(by: { $0.releaseDate > $1.releaseDate })
         }
         else{
-            try? fileManager.createDirectory(at: documentsURL.appendingPathComponent("Up-Coming"), withIntermediateDirectories: false, attributes: nil)
+            try? fileManager.createDirectory(at: documentsURL.appendingPathComponent(keyUpcoming), withIntermediateDirectories: false, attributes: nil)
         }
     }
     
-    func saveAllOnDisk(movies : [Movie], category: SideButtonCategoryState){
+    func saveAllOnDisk(movies : [Movie], filter: ActiveFilter){
         for movie in movies {
-            saveMovieOnDisk(movie, category: category)
+            saveMovieOnDisk(movie, filter: filter)
         }
     }
     
-    func saveMovieOnDisk(_ movie: Movie, category: SideButtonCategoryState) {
+    func saveMovieOnDisk(_ movie: Movie, filter: ActiveFilter) {
         let encoder = JSONEncoder()
-        let title = movie.id
-        let fileURL = documentsURL.appendingPathComponent(category.description).appendingPathComponent("\(title).json")
+        let title = movie.title
+        let fileURL = documentsURL.appendingPathComponent(filter.description).appendingPathComponent("\(title).json")
         
         if !fileManager.fileExists(atPath: fileURL.absoluteString) {
             do {
                 let data = try encoder.encode(movie)
                 try data.write(to: fileURL)
+                print("Saved \(title)")
             } catch let error {
                 print(error.localizedDescription)
             }
@@ -107,28 +112,29 @@ class MovieStorage {
     }
     
     func resetStorage() {
-        var moviesFilesURLs = try! fileManager.contentsOfDirectory(at: documentsURL.appendingPathComponent("Popular"), includingPropertiesForKeys: nil)
+        var moviesFilesURLs = try! fileManager.contentsOfDirectory(at: documentsURL.appendingPathComponent(keyPopular), includingPropertiesForKeys: nil)
         for path in moviesFilesURLs {
             try? fileManager.removeItem(at: path)
         }
         
-        moviesFilesURLs = try! fileManager.contentsOfDirectory(at: documentsURL.appendingPathComponent("Top-Rated"), includingPropertiesForKeys: nil)
+        moviesFilesURLs = try! fileManager.contentsOfDirectory(at: documentsURL.appendingPathComponent(keyTopRated), includingPropertiesForKeys: nil)
         for path in moviesFilesURLs {
             try? fileManager.removeItem(at: path)
         }
         
-        moviesFilesURLs = try! fileManager.contentsOfDirectory(at: documentsURL.appendingPathComponent("Up-Coming"), includingPropertiesForKeys: nil)
+        moviesFilesURLs = try! fileManager.contentsOfDirectory(at: documentsURL.appendingPathComponent(keyUpcoming), includingPropertiesForKeys: nil)
         for path in moviesFilesURLs {
             try? fileManager.removeItem(at: path)
         }
     }
     
-    func retrieveArray(category: SideButtonCategoryState) -> [Movie] {
-        if category == .popular {
+    func retrieveArray(filter: ActiveFilter) -> [Movie] {
+        switch filter {
+        case .popular:
             return self.popularMovies
-        } else if category == .topRated {
+        case .topRated:
             return self.topRatedMovies
-        } else {
+        case .upcoming:
             return self.upcomingMovies
         }
     }

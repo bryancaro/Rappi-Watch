@@ -38,6 +38,7 @@ struct MoviesView: View {
                 LoadingView(title: "no_found_title".localized, name: "not_found")
                     .transition(.fade)
             }
+            
             LoadMoreButton(active: .constant(true), action: loadMoreTapped)
                 .padding()
         } else {
@@ -45,7 +46,7 @@ struct MoviesView: View {
                 .transition(.fade)
         }
     }
-        
+    
     // MARK: - Actions
     func loadMoreTapped() {
         viewModel.fetchMoreMovies()

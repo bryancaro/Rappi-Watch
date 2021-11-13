@@ -15,7 +15,7 @@ struct ScrollContentView: View {
             VStack {
                 if !viewModel.active {
                     HStack {
-                        Text(viewModel.activeCategory.description)
+                        Text(viewModel.filterSelected.isEmpty ? "Loading" : viewModel.filterSelected[0].filter.title)
                             .font(.body)
                             .bold()
                         
@@ -28,11 +28,13 @@ struct ScrollContentView: View {
                     LoadingView(title: "loading_title".localized, name: "loading")
                         .transition(.fade)
                 } else {
-                    switch viewModel.activeType {
+                    switch viewModel.categoriesSelected[0].category.active {
                     case .movies:
                         MoviesView(viewModel: viewModel)
-                    case .tvSeries:
+                    case .tvshow:
                         TVSeriesView(viewModel: viewModel)
+                    case .people:
+                        PeopleView(viewModel: viewModel)
                     }
                 }
             }

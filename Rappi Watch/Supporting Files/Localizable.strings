@@ -10,7 +10,7 @@
 "first_onboarding_description" = "And never miss the ones one you want to watch";
 "second_onboarding_title" = "Discover great TV series";
 "second_onboarding_description" = "And see which one is with the best score";
-"sideButton_title" = "Category";
+"sideButton_title" = "Filter";
 "loading_title" = "Loading";
 "search_cover_title" = "What are you looking for?";
 "no_found_title" = "No found";
@@ -32,4 +32,9 @@
 "filter_button_first_title" = "Popular";
 "filter_button_second_title" = "Top-Rated";
 "filter_button_third_title" = "Up-Coming";
+"filter_button_fourth_title" = "Latest";
 "beta_version" = "This is a demo application, please request the full version";
+"categorie_first_title" = "Movies";
+"categorie_second_title" = "TV Show";
+"categorie_third_title" = "People";
+"know_title" = "Know For";

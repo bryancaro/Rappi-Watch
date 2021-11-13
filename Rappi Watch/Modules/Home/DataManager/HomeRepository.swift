@@ -13,23 +13,59 @@ protocol HomeRepositoryProtocol {
     
     // MARK: - TV Series
     func fetchTVSeries(_ filter: FilterModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void)
+    
+    // MARK: - People
+    func fetchPeople(_ filter: FilterModel, page: Int, completion: @escaping(PeopleResponse?, ServerError?) -> Void)
 }
 
 class HomeRepository {
     private let server: ServerManager
+    private let local : LocalManager
+    private let reachability = ReachabilityManager()
     
-    init(server: ServerManager = ServerManager()) {
+    init(server: ServerManager = ServerManager(), local: LocalManager = LocalManager()) {
         self.server = server
+        self.local = local
     }
 }
 
 extension HomeRepository: HomeRepositoryProtocol {
     // MARK: - Movies
     func fetchMovies(_ filter: FilterModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void) {
-        server.fetchMovies(filter, page: page, completion: completion)
+        if reachability.isConnected() {
+            server.fetchMovies(filter, page: page, completion: completion)
+        } else {
+            local.retrieveMoviesData(filter) { response in
+                DispatchQueue.main.async {
+                    completion(response, nil)
+                }
+            }
+        }
     }
     
+    // MARK: - TV Series
     func fetchTVSeries(_ filter: FilterModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void) {
-        server.fetchTVSeries(filter, page: page, completion: completion)
+        if reachability.isConnected() {
+            server.fetchTVSeries(filter, page: page, completion: completion)
+        } else {
+            local.retrieveTVSeriesData(filter) { response in
+                DispatchQueue.main.async {
+                    completion(response, nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: - People
+    func fetchPeople(_ filter: FilterModel, page: Int, completion: @escaping(PeopleResponse?, ServerError?) -> Void) {
+        if reachability.isConnected() {
+            server.fetchPeople(filter, page: page, completion: completion)
+        } else {
+            local.retrievePeopleData(filter) { response in
+                DispatchQueue.main.async {
+                    completion(response, nil)
+                }
+            }
+        }
     }
 }

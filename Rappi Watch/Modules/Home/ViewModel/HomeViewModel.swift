@@ -17,20 +17,16 @@ class HomeViewModel: ObservableObject {
     @Published var appError  : AppError? = nil
     @Published var isLoading : Bool = true
     
-    @Published var activeType: SideButtonTypeState = SideButtonTypeState()
-    @Published var activeCategory: SideButtonCategoryState = SideButtonCategoryState()
-    
     @Published var movies: [MovieModel] = [MovieModel]()
     @Published var series: [TVSerieModel] = [TVSerieModel]()
+    @Published var people: [PeopleModel] = [PeopleModel]()
     
     @Published var actualPage: Int = 1
     @Published var totalPage: Int = 0
     
-    //
-    
-    
     @Published var searchMovies: [MovieModel] = [MovieModel]()
     @Published var searchTVSeries: [TVSerieModel] = [TVSerieModel]()
+    @Published var searchPeople: [PeopleModel] = [PeopleModel]()
     
     @Published var showMySelf = false
     
@@ -47,45 +43,76 @@ class HomeViewModel: ObservableObject {
     
     @Published var filterFactory: [FilterModel] = [FilterModel]()
     @Published var filterSelected: [FilterModel] = [FilterModel]()
-    private let manageFilters: ManageFilterFactory
     
-    //
-    
+    @Published var categoriesFactory: [CategoriesModel] = [CategoriesModel]()
+    @Published var categoriesSelected: [CategoriesModel] = [CategoriesModel]()
+        
     private let reachability = ReachabilityManager()
     private let repository: HomeRepositoryProtocol
-    init(repository: HomeRepositoryProtocol = HomeRepository(), manageFilters: ManageFilterFactory = ManageFilterFactory()) {
+    init(repository: HomeRepositoryProtocol = HomeRepository()) {
         self.repository = repository
-        self.manageFilters = manageFilters
     }
-    
-    // MARK: - Get Filters Manager
-    func configureFilter() {
-        getFilters {
-            ManageFilterFactory.provideFilters()
+    // MARK: - Get Categories Manager
+    func configureCategories() {
+        getCategories {
+            ManageCategories.provideCategories()
         }
     }
     
-    func getFilters(data: () -> [FilterModel]) {
-        self.filterFactory = data()
-        self.filterSelected.append(filterFactory[0])
+    func getCategories(data: () -> [CategoriesModel]) {
+        categoriesFactory = data()
+        categoriesSelected.append(categoriesFactory[0])
+        filterSelected.append(categoriesFactory[0].category.filters[0])
+        fetchMovies(categoriesSelected[0].category.filters[0])
+    }
+    
+    func categorieTapped(_ selected: CategoriesModel) {
+        if categoriesSelected.contains(where: { $0.id == selected.id}) {
+            switch selected.category.active {
+            case .movies:
+                fetchMovies(filterSelected[0])
+            case .tvshow:
+                fetchTVSeries(filterSelected[0])
+            case .people:
+                fetchPeople(filterSelected[0])
+            }
+        } else {
+            categoriesSelected.removeAll()
+            categoriesSelected.append(selected)
+            filterSelected.removeAll()
+            filterSelected.append(selected.category.filters[0])
+            
+            switch selected.category.active {
+            case .movies:
+                fetchMovies(filterSelected[0])
+            case .tvshow:
+                fetchTVSeries(filterSelected[0])
+            case .people:
+                fetchPeople(filterSelected[0])
+            }
+        }
     }
     
     func filterTapped(_ selected: FilterModel) {
         if filterSelected.contains(where: { $0.id == selected.id}) {
-            switch activeType {
+            switch categoriesSelected[0].category.active {
             case .movies:
                 fetchMovies(selected)
-            case .tvSeries:
+            case .tvshow:
                 fetchTVSeries(selected)
+            case .people:
+                fetchPeople(selected)
             }
         } else {
             filterSelected.removeAll()
             filterSelected.append(selected)
-            switch activeType {
+            switch categoriesSelected[0].category.active {
             case .movies:
                 fetchMovies(selected)
-            case .tvSeries:
+            case .tvshow:
                 fetchTVSeries(selected)
+            case .people:
+                fetchPeople(selected)
             }
         }
     }
@@ -201,6 +228,59 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    // MARK: - People
+    func fetchPeople(_ filter: FilterModel) {
+        isLoading = true
+        actualPage = 1
+        totalPage = 0
+        repository.fetchPeople(filter, page: actualPage) { [weak self] result, error in
+            if let error = error {
+                haptic(type: .error)
+                dismissLoadingView {
+                    self?.isLoading = false
+                    self?.appError = AppError(errorString: error.localizedDescription)
+                }
+                return
+            }
+            
+            guard let result = result else { return }
+            self?.actualPage = result.page
+            self?.totalPage = result.totalPages
+            self?.people = result.results.map({ PeopleModel(people: $0)})
+            
+            dismissLoadingView {
+                self?.isLoading = false
+            }
+        }
+    }
+    
+    func fetchMorePeople() {
+        if reachability.isConnected() {
+            if actualPage >= totalPage {
+                haptic(type: .warning)
+            } else {
+                actualPage += 1
+                repository.fetchPeople(filterSelected[0], page: actualPage) { [weak self] result, error in
+                    if let error = error {
+                        haptic(type: .error)
+                        dismissLoadingView {
+                            self?.isLoading = false
+                            self?.appError = AppError(errorString: error.localizedDescription)
+                        }
+                        return
+                    }
+                    
+                    guard let result = result else { return }
+                    self?.actualPage = result.page
+                    self?.totalPage = result.totalPages
+                    self?.people += result.results.map({ PeopleModel(people: $0)})
+                    haptic(type: .success)
+                }
+            }
+        } else {
+            haptic(type: .warning)
+        }
+    }
     
     func showAlert(mssg: String) {
         appError = AppError(errorString: mssg)
@@ -233,21 +313,15 @@ struct TVSerieModel: Identifiable, Hashable {
     }
 }
 
-enum SideButtonTypeState: CustomStringConvertible {
-    case movies
-    case tvSeries
+struct PeopleModel: Identifiable, Hashable {
+    var id: String
+    var show: Bool
+    var people: People
     
-    init() {
-        self = .movies
-    }
-    
-    var description: String {
-        switch self {
-        case .movies:
-            return "Movies"
-        case .tvSeries:
-            return "TV Series"
-        }
+    init(people: People) {
+        self.id = UUID().uuidString
+        self.show = false
+        self.people = people
     }
 }
 
