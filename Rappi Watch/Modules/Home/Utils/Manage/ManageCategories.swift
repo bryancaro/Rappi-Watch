@@ -8,10 +8,21 @@
 import Foundation
 import SwiftUI
 
-enum ActiveCategorie {
+enum ActiveCategorie: CustomStringConvertible {
     case movies
     case tvshow
     case people
+    
+    var description: String {
+        switch self {
+        case .movies:
+            return "categorie_first_title".localized
+        case .tvshow:
+            return "categorie_second_title".localized
+        case .people:
+            return "categorie_third_title".localized
+        }
+    }
 }
 
 enum ActiveFilter: CustomStringConvertible {

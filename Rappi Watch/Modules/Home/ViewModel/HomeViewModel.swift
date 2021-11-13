@@ -52,6 +52,7 @@ class HomeViewModel: ObservableObject {
     init(repository: HomeRepositoryProtocol = HomeRepository()) {
         self.repository = repository
     }
+    
     // MARK: - Get Categories Manager
     func configureCategories() {
         getCategories {
@@ -122,7 +123,7 @@ class HomeViewModel: ObservableObject {
         isLoading = true
         actualPage = 1
         totalPage = 0
-        repository.fetchMovies(filter, page: actualPage) { [weak self] result, error in
+        repository.fetchMovies(filter, categoriesSelected[0], page: actualPage) { [weak self] result, error in
             if let error = error {
                 haptic(type: .error)
                 dismissLoadingView {
@@ -149,7 +150,7 @@ class HomeViewModel: ObservableObject {
                 haptic(type: .warning)
             } else {
                 actualPage += 1
-                repository.fetchMovies(filterSelected[0], page: actualPage) { [weak self] result, error in
+                repository.fetchMovies(filterSelected[0], categoriesSelected[0], page: actualPage) { [weak self] result, error in
                     if let error = error {
                         haptic(type: .error)
                         dismissLoadingView {
@@ -176,7 +177,7 @@ class HomeViewModel: ObservableObject {
         isLoading = true
         actualPage = 1
         totalPage = 0
-        repository.fetchTVSeries(filter, page: actualPage) { [weak self] result, error in
+        repository.fetchTVSeries(filter, categoriesSelected[0], page: actualPage) { [weak self] result, error in
             if let error = error {
                 haptic(type: .error)
                 dismissLoadingView {
@@ -205,7 +206,7 @@ class HomeViewModel: ObservableObject {
             } else {
                 actualPage += 1
                 
-                repository.fetchTVSeries(filterSelected[0], page: actualPage) { [weak self] result, error in
+                repository.fetchTVSeries(filterSelected[0], categoriesSelected[0], page: actualPage) { [weak self] result, error in
                     if let error = error {
                         haptic(type: .error)
                         dismissLoadingView {
@@ -233,7 +234,7 @@ class HomeViewModel: ObservableObject {
         isLoading = true
         actualPage = 1
         totalPage = 0
-        repository.fetchPeople(filter, page: actualPage) { [weak self] result, error in
+        repository.fetchPeople(filter, categoriesSelected[0], page: actualPage) { [weak self] result, error in
             if let error = error {
                 haptic(type: .error)
                 dismissLoadingView {
@@ -260,7 +261,7 @@ class HomeViewModel: ObservableObject {
                 haptic(type: .warning)
             } else {
                 actualPage += 1
-                repository.fetchPeople(filterSelected[0], page: actualPage) { [weak self] result, error in
+                repository.fetchPeople(filterSelected[0], categoriesSelected[0], page: actualPage) { [weak self] result, error in
                     if let error = error {
                         haptic(type: .error)
                         dismissLoadingView {

@@ -10,20 +10,20 @@ import Alamofire
 
 protocol ServerManagerProtocol {
     // MARK: - Movies
-    func fetchMovies(_ filter: FilterModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void)
+    func fetchMovies(_ filter: FilterModel, _ category: CategoriesModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void)
     func fetchMovieDetail(id: Int, completion: @escaping(MovieDetail?, ServerError?) -> Void)
     
     // MARK: - TV Series
-    func fetchTVSeries(_ filter: FilterModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void)
+    func fetchTVSeries(_ filter: FilterModel, _ category: CategoriesModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void)
     func fetchTVSerieDetail(id: Int, completion: @escaping(TVSerieDetail?, ServerError?) -> Void)
     
     // MARK: - People
-    func fetchPeople(_ filter: FilterModel, page: Int, completion: @escaping(PeopleResponse?, ServerError?) -> Void)
+    func fetchPeople(_ filter: FilterModel, _ category: CategoriesModel, page: Int, completion: @escaping(PeopleResponse?, ServerError?) -> Void)
 }
 
 final class ServerManager: ServerManagerProtocol {
     // MARK: - Movies
-    func fetchMovies(_ filter: FilterModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void) {
+    func fetchMovies(_ filter: FilterModel, _ category: CategoriesModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void) {
         let url = "\(ConfigReader.baseUrl())/movie\(filter.filter.endpoint)"
         
         let parameters = MovieQuery(
@@ -43,7 +43,8 @@ final class ServerManager: ServerManagerProtocol {
                     guard let data = response.data else { return }
                     do {
                         let data = try JSONDecoder().decode(ResponseTopMovies.self, from: data)
-                        MovieStorage.shared.saveAllOnDisk(movies: data.results, filter: filter.filter.active)
+                        DataStorage.shared.saveAllOnDisk(movies: data.results, filter: filter.filter.active, category: category.category.active)
+                        //                        MovieStorage.shared.saveAllOnDisk(movies: data.results, filter: filter.filter.active)
                         completion(data, nil)
                     } catch let error {
                         print(error.localizedDescription)
@@ -88,7 +89,7 @@ final class ServerManager: ServerManagerProtocol {
     }
     
     // MARK: - TV Series
-    func fetchTVSeries(_ filter: FilterModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void) {
+    func fetchTVSeries(_ filter: FilterModel, _ category: CategoriesModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void) {
         let url = "\(ConfigReader.baseUrl())/tv\(filter.filter.endpoint)"
         
         let parameters = MovieQuery(
@@ -108,7 +109,8 @@ final class ServerManager: ServerManagerProtocol {
                     guard let data = response.data else { return }
                     do {
                         let data = try JSONDecoder().decode(TVSerieResponse.self, from: data)
-                        TVSerieStorage.shared.saveAllOnDisk(tvseries: data.results, filter: filter.filter.active)
+                        DataStorage.shared.saveAllOnDisk(tvSeries: data.results, filter: filter.filter.active, category: category.category.active)
+                        //                        TVSerieStorage.shared.saveAllOnDisk(tvseries: data.results, filter: filter.filter.active)
                         completion(data, nil)
                     } catch let error {
                         print(error.localizedDescription)
@@ -153,7 +155,7 @@ final class ServerManager: ServerManagerProtocol {
     }
     
     // MARK: - People
-    func fetchPeople(_ filter: FilterModel, page: Int, completion: @escaping(PeopleResponse?, ServerError?) -> Void) {
+    func fetchPeople(_ filter: FilterModel, _ category: CategoriesModel, page: Int, completion: @escaping(PeopleResponse?, ServerError?) -> Void) {
         let url = "\(ConfigReader.baseUrl())/person\(filter.filter.endpoint)"
         
         let parameters = MovieQuery(
@@ -173,7 +175,8 @@ final class ServerManager: ServerManagerProtocol {
                     guard let data = response.data else { return }
                     do {
                         let data = try JSONDecoder().decode(PeopleResponse.self, from: data)
-                        PeopleStorage.shared.saveAllOnDisk(peoples: data.results, filter: filter.filter.active)
+                        DataStorage.shared.saveAllOnDisk(peoples: data.results, filter: filter.filter.active, category: category.category.active)
+                        //                        PeopleStorage.shared.saveAllOnDisk(peoples: data.results, filter: filter.filter.active)
                         completion(data, nil)
                     } catch let error {
                         print(error.localizedDescription)

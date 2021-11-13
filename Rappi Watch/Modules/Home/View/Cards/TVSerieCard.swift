@@ -51,21 +51,19 @@ struct TVSerieCard: View {
     
     // MARK: - Actions
     func onTapGesture() {
-        if reachability.isConnected() {
-            impact(style: .heavy)
-            viewModel[index].show.toggle()
-            active.toggle()
-            if viewModel[index].show {
-                activeIndex = index
+        impact(style: .heavy)
+        viewModel[index].show.toggle()
+        active.toggle()
+        if viewModel[index].show {
+            activeIndex = index
+            if reachability.isConnected() {
                 detailViewModel.fetchDetail(id: viewModel[index].serie.id)
-            } else {
-                activeIndex = -1
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                isScrollable = true
             }
         } else {
-            showAlert()
+            activeIndex = -1
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            isScrollable = true
         }
     }
     

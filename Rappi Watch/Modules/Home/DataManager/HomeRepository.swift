@@ -9,13 +9,13 @@ import Foundation
 
 protocol HomeRepositoryProtocol {
     // MARK: - Movies
-    func fetchMovies(_ filter: FilterModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void)
+    func fetchMovies(_ filter: FilterModel, _ category: CategoriesModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void)
     
     // MARK: - TV Series
-    func fetchTVSeries(_ filter: FilterModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void)
+    func fetchTVSeries(_ filter: FilterModel, _ category: CategoriesModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void)
     
     // MARK: - People
-    func fetchPeople(_ filter: FilterModel, page: Int, completion: @escaping(PeopleResponse?, ServerError?) -> Void)
+    func fetchPeople(_ filter: FilterModel, _ category: CategoriesModel, page: Int, completion: @escaping(PeopleResponse?, ServerError?) -> Void)
 }
 
 class HomeRepository {
@@ -31,9 +31,9 @@ class HomeRepository {
 
 extension HomeRepository: HomeRepositoryProtocol {
     // MARK: - Movies
-    func fetchMovies(_ filter: FilterModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void) {
+    func fetchMovies(_ filter: FilterModel, _ category: CategoriesModel, page: Int, completion: @escaping(ResponseTopMovies?, ServerError?) -> Void) {
         if reachability.isConnected() {
-            server.fetchMovies(filter, page: page, completion: completion)
+            server.fetchMovies(filter, category, page: page, completion: completion)
         } else {
             local.retrieveMoviesData(filter) { response in
                 DispatchQueue.main.async {
@@ -44,9 +44,9 @@ extension HomeRepository: HomeRepositoryProtocol {
     }
     
     // MARK: - TV Series
-    func fetchTVSeries(_ filter: FilterModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void) {
+    func fetchTVSeries(_ filter: FilterModel, _ category: CategoriesModel, page: Int, completion: @escaping(TVSerieResponse?, ServerError?) -> Void) {
         if reachability.isConnected() {
-            server.fetchTVSeries(filter, page: page, completion: completion)
+            server.fetchTVSeries(filter, category, page: page, completion: completion)
         } else {
             local.retrieveTVSeriesData(filter) { response in
                 DispatchQueue.main.async {
@@ -57,9 +57,9 @@ extension HomeRepository: HomeRepositoryProtocol {
     }
     
     // MARK: - People
-    func fetchPeople(_ filter: FilterModel, page: Int, completion: @escaping(PeopleResponse?, ServerError?) -> Void) {
+    func fetchPeople(_ filter: FilterModel, _ category: CategoriesModel, page: Int, completion: @escaping(PeopleResponse?, ServerError?) -> Void) {
         if reachability.isConnected() {
-            server.fetchPeople(filter, page: page, completion: completion)
+            server.fetchPeople(filter, category, page: page, completion: completion)
         } else {
             local.retrievePeopleData(filter) { response in
                 DispatchQueue.main.async {

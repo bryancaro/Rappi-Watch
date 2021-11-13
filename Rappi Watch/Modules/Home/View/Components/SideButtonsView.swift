@@ -45,7 +45,7 @@ struct SideButtonsView: View {
             .frame(maxWidth: 100)
         }
     }
-        
+    
     // MARK: - Actions
     func categorieTapped(_ selected: CategoriesModel) {
         viewModel.categorieTapped(selected)
