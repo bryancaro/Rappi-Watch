@@ -9,37 +9,66 @@ import XCTest
 @testable import Rappi_Watch
 
 class Rappi_WatchTests: XCTestCase {
-    var sut: URLSession!
-    let networkMonitor = ServerManager?.self
+    let resource = ServerManager()
     
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-        sut = URLSession(configuration: .default)
-    }
-    
-    override func tearDownWithError() throws {
-        sut = nil
-        try super.tearDownWithError()
-    }
-    
-    func testValidApiCallGetsHTTPStatusCode200() throws {
-        let urlString = "https://api.themoviedb.org/3/tv/90462?api_key=79601b6105dd10b6fa4a11e1a8053a74&language=en-US"
-        let url = URL(string: urlString)!
-        let promise = expectation(description: "Status code: 200")
+    func test_getMoviesResource_with_validPage() {
+        let expectation = self.expectation(description: "ValidRequest_returns_movieResponse")
         
-        let dataTask = sut.dataTask(with: url) { _, response, error in
-            if let error = error {
-                XCTFail("Error: \(error.localizedDescription)")
-                return
-            } else if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                if statusCode == 200 {
-                    promise.fulfill()
-                } else {
-                    XCTFail("Status code: \(statusCode)")
-                }
-            }
+        let page = 1
+        let category = CategoriesModel(ManageCategories.Categories.movies)
+        let filter = FilterModel(ManageCategories.Filter.popular)
+        
+        resource.fetchMovies(filter, category, page: page) { response, error in
+            XCTAssertNotNil(response)
+            XCTAssertNil(error)
+            expectation.fulfill()
         }
-        dataTask.resume()
-        wait(for: [promise], timeout: 5)
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    func test_getMoviesResource_with_invalidPage() {
+        let expectation = self.expectation(description: "ValidRequest_returns_movieResponse")
+        
+        let page = 10000
+        let category = CategoriesModel(ManageCategories.Categories.movies)
+        let filter = FilterModel(ManageCategories.Filter.popular)
+        
+        resource.fetchMovies(filter, category, page: page) { response, error in
+            XCTAssertNil(response)
+            XCTAssertNotNil(error)
+            XCTAssertEqual("Sorry for the inconvenience, please try again later!", error?.localizedDescription)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    func test_getMoviesDetail_with_validId() {
+        let expectation = self.expectation(description: "ValidRequest_returns_movieResponse")
+        
+        let id = 580489
+        
+        resource.fetchMovieDetail(id: id) { response, error in
+            XCTAssertNotNil(response)
+            XCTAssertNil(error)
+            XCTAssertEqual(id, response?.id)
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    func test_getMoviesDetail_with_invalidId() {
+        let expectation = self.expectation(description: "ValidRequest_returns_movieResponse")
+        
+        let id = 00000000
+        
+        resource.fetchMovieDetail(id: id) { response, error in
+            XCTAssertNil(response)
+            XCTAssertNotNil(error)
+            XCTAssertEqual("Sorry for the inconvenience, please try again later!", error?.localizedDescription)
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
     }
 }

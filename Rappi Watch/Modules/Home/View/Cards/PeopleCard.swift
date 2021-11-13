@@ -18,7 +18,6 @@ struct PeopleCard: View {
     var bodyWidth: CGFloat
     var topInset: CGFloat
     var index: Int
-    var showAlert: () -> Void
     
     var body: some View {
         if viewModel.indices.contains(index) {
@@ -117,5 +116,11 @@ struct PeopleCard: View {
         .shadow(color: Color.black.opacity(0.25), radius: 10, x: 0.0, y: 30)
         .padding(.bottom)
         .onTapGesture(perform: onTapGesture)
+    }
+}
+
+struct PeopleCard_Previews: PreviewProvider {
+    static var previews: some View {
+        PeopleCard(viewModel: .constant([PeopleModel]()), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bodyWidth: 0, topInset: 0, index: 0)
     }
 }

@@ -19,7 +19,6 @@ struct TVSerieCard: View {
     var bodyWidth: CGFloat
     var topInset: CGFloat
     var index: Int
-    var showAlert: () -> Void
     
     private let reachability = ReachabilityManager()
     
@@ -131,6 +130,6 @@ struct TVSerieCard: View {
 
 struct TVSerieCard_Previews: PreviewProvider {
     static var previews: some View {
-        TVSerieCard(viewModel: .constant([TVSerieModel(serie: emptyTVSerie)]), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bodyWidth: 0, topInset: 0, index: 0, showAlert: {})
+        TVSerieCard(viewModel: .constant([TVSerieModel(serie: emptyTVSerie)]), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bodyWidth: 0, topInset: 0, index: 0)
     }
 }

@@ -44,7 +44,6 @@ final class ServerManager: ServerManagerProtocol {
                     do {
                         let data = try JSONDecoder().decode(ResponseTopMovies.self, from: data)
                         DataStorage.shared.saveAllOnDisk(movies: data.results, filter: filter.filter.active, category: category.category.active)
-                        //                        MovieStorage.shared.saveAllOnDisk(movies: data.results, filter: filter.filter.active)
                         completion(data, nil)
                     } catch let error {
                         print(error.localizedDescription)
@@ -110,7 +109,6 @@ final class ServerManager: ServerManagerProtocol {
                     do {
                         let data = try JSONDecoder().decode(TVSerieResponse.self, from: data)
                         DataStorage.shared.saveAllOnDisk(tvSeries: data.results, filter: filter.filter.active, category: category.category.active)
-                        //                        TVSerieStorage.shared.saveAllOnDisk(tvseries: data.results, filter: filter.filter.active)
                         completion(data, nil)
                     } catch let error {
                         print(error.localizedDescription)
@@ -176,7 +174,6 @@ final class ServerManager: ServerManagerProtocol {
                     do {
                         let data = try JSONDecoder().decode(PeopleResponse.self, from: data)
                         DataStorage.shared.saveAllOnDisk(peoples: data.results, filter: filter.filter.active, category: category.category.active)
-                        //                        PeopleStorage.shared.saveAllOnDisk(peoples: data.results, filter: filter.filter.active)
                         completion(data, nil)
                     } catch let error {
                         print(error.localizedDescription)

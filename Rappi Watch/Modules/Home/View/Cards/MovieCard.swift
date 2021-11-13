@@ -19,7 +19,6 @@ struct MovieCard: View {
     var bodyWidth: CGFloat
     var topInset: CGFloat
     var index: Int
-    var showAlert: () -> Void
     
     private let reachability = ReachabilityManager()
     
@@ -129,10 +128,8 @@ struct MovieCard: View {
     }
 }
 
-//struct MovieCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GeometryReader { bounds in
-//            MovieCard(viewModel: .constant([MovieModel(movie: emptyMovie))], active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bounds: bounds, index: 0, showAlert: {})
-//        }
-//    }
-//}
+struct MovieCard_Previews: PreviewProvider {
+    static var previews: some View {
+        MovieCard(viewModel: .constant([MovieModel]()), active: .constant(false), activeIndex: .constant(0), activeView: .constant(CGSize(width: 0, height: 0)), isScrollable: .constant(true), bodyWidth: 0, topInset: 0, index: 0)
+    }
+}

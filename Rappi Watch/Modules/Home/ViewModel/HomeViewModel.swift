@@ -46,7 +46,7 @@ class HomeViewModel: ObservableObject {
     
     @Published var categoriesFactory: [CategoriesModel] = [CategoriesModel]()
     @Published var categoriesSelected: [CategoriesModel] = [CategoriesModel]()
-        
+    
     private let reachability = ReachabilityManager()
     private let repository: HomeRepositoryProtocol
     init(repository: HomeRepositoryProtocol = HomeRepository()) {

@@ -22,8 +22,7 @@ struct PeopleView: View {
                         isScrollable: $viewModel.isScrollable,
                         bodyWidth: viewModel.bodyWidth,
                         topInset: viewModel.topInset,
-                        index: index,
-                        showAlert: showAlert)
+                        index: index)
                         .offset(y: (viewModel.commitSearch.isEmpty ? viewModel.people[index].show : viewModel.searchPeople[index].show) ? -geometry.frame(in: .global).minY : 0)
                         .opacity(viewModel.activeIndex != index && viewModel.active ? 0 : 1)
                         .scaleEffect(viewModel.activeIndex != index && viewModel.active ? 0.5 : 1)

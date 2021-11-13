@@ -22,8 +22,7 @@ struct TVSeriesView: View {
                         isScrollable: $viewModel.isScrollable,
                         bodyWidth: viewModel.bodyWidth,
                         topInset: viewModel.topInset,
-                        index: index,
-                        showAlert: showAlert)
+                        index: index)
                         .offset(y: (viewModel.commitSearch.isEmpty ? viewModel.series[index].show : viewModel.searchTVSeries[index].show) ? -geometry.frame(in: .global).minY : 0)
                         .opacity(viewModel.activeIndex != index && viewModel.active ? 0 : 1)
                         .scaleEffect(viewModel.activeIndex != index && viewModel.active ? 0.5 : 1)
@@ -45,10 +44,6 @@ struct TVSeriesView: View {
     // MARK: - Actions
     func loadMoreTapped() {
         viewModel.fetchMoreTVSeries()
-    }
-    
-    func showAlert() {
-        viewModel.showAlert(mssg: "beta_version".localized)
     }
 }
 

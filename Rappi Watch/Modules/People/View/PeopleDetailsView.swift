@@ -89,22 +89,6 @@ struct PeopleDetailsView: View {
         .clipShape(RoundedRectangle(cornerRadius: getCardCornerRadius2(bodyWidth: bodyWidth, topInset: topInset), style: .continuous))
         .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 20)
     }
-    
-//    var MidleDetail: some View {
-//        VStack(alignment: .leading, spacing: 15) {
-//            Text(detailVM.people)
-//                .font(.body)
-//                .foregroundColor(.black)
-            
-//            BarChartView(title: "Budge", data: $detailViewModel.detail.movie.budget)
-//
-//            BarChartView(title: "Revenue", data: $detailViewModel.detail.movie.revenue)
-//
-//            CompaniesView(companies: $detailViewModel.detail.movie.productionCompanies)
-//
-//            CountriesView(countries: $detailViewModel.detail.movie.productionCountries)
-//        }
-//    }
 }
 
 //struct MovieDetailsView_Previews: PreviewProvider {
@@ -114,4 +98,3 @@ struct PeopleDetailsView: View {
 //        }
 //    }
 //}
-
